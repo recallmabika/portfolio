@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/static/images/me_img.png">
+    <title>Recall T Mabika | Cybersecurity Portfolio</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Open+Sans:wght@400;700&family=Philosopher:wght@400;700&family=Poppins:wght@400;700&family=Roboto:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    <!-- Custom Tailwind Config for Fonts -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif'],
+                        philosopher: ['Philosopher', 'serif'],
+                        roboto: ['Roboto', 'sans-serif'],
+                        lato: ['Lato', 'sans-serif'],
+                        'open-sans': ['"Open Sans"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
+
+    <header class="sticky top-0 w-full z-50 shadow">
+        <div
+            class="bg-white/40 backdrop-blur-lg dark:bg-gray-900/80 py-4 md:py-6 px-6 md:px-16 transition-colors duration-300 border-b border-blue-500/20">
+            <div class="container mx-auto flex flex-wrap justify-between items-center">
+                <!-- Glitch Name -->
+                <div class="relative">
+                    <a href="#" class="block group">
+                        <h1 class="glitch text-2xl md:text-4xl font-philosopher text-blue-600 dark:text-blue-400" data-text="RECALL TAWANDA MABIKA">
+                            RECALL TAWANDA MABIKA
+                        </h1>
+                        <div class="flex items-center gap-2 mt-1">
+                            <span class="inline-block w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                            <span class="text-xs font-mono text-gray-500 dark:text-gray-400 tracking-wider">
+                                <span class="text-cyan-400">$></span> 
+                                <span class="cursor-blink">cybersecurity_operative_active</span>
+                            </span>
+                        </div>
+                    </a>
+                </div>
+                
+                <button id="mobile-menu-btn"
+                    class="md:hidden text-gray-600 dark:text-gray-300 hover:text-blue-600 focus:outline-none p-2 ml-auto">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+                
+                <nav id="mobile-menu" class="hidden md:block w-full md:w-auto mt-4 md:mt-0">
+                    <ul
+                        class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4 font-roboto font-medium text-gray-600">
+                        <li><a href="#home"
+                                class="relative px-3 py-2 text-base font-semibold text-gray-700 dark:text-gray-300 transition-all duration-300 hover:text-blue-600 dark:hover:text-blue-400 hover:-translate-y-1 focus:text-blue-600 dark:focus:text-blue-400 focus:outline-none after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-blue-600 dark:after:bg-blue-400 after:transition-all after:duration-300 hover:after:w-full focus:after:w-full">Home</a>
+                        </li>
+                        <li><a href="#about"
+                                class="relative px-3 py-2 text-base font-semibold text-gray-700 dark:text-gray-300 transition-all duration-300 hover:text-blue-600 dark:hover:text-blue-400 hover:-translate-y-1 focus:text-blue-600 dark:focus:text-blue-400 focus:outline-none after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-blue-600 dark:after:bg-blue-400 after:transition-all after:duration-300 hover:after:w-full focus:after:w-full">About</a>
+                        </li>
+                        <li><a href="#skills"
+                                class="relative px-3 py-2 text-base font-semibold text-gray-700 dark:text-gray-300 transition-all duration-300 hover:text-blue-600 dark:hover:text-blue-400 hover:-translate-y-1 focus:text-blue-600 dark:focus:text-blue-400 focus:outline-none after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-blue-600 dark:after:bg-blue-400 after:transition-all after:duration-300 hover:after:w-full focus:after:w-full">Skills</a>
+                        </li>
+                        <li><a href="#certifications"
+                                class="relative px-3 py-2 text-base font-semibold text-gray-700 dark:text-gray-300 transition-all duration-300 hover:text-blue-600 dark:hover:text-blue-400 hover:-translate-y-1 focus:text-blue-600 dark:focus:text-blue-400 focus:outline-none after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-blue-600 dark:after:bg-blue-400 after:transition-all after:duration-300 hover:after:w-full focus:after:w-full">Certifications</a>
+                        </li>
+                        <li><a href="#contact"
+                                class="relative px-3 py-2 text-base font-semibold text-gray-700 dark:text-gray-300 transition-all duration-300 hover:text-blue-600 dark:hover:text-blue-400 hover:-translate-y-1 focus:text-blue-600 dark:focus:text-blue-400 focus:outline-none after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-blue-600 dark:after:bg-blue-400 after:transition-all after:duration-300 hover:after:w-full focus:after:w-full">Contact</a>
+                        </li>
+                        <li class="mt-4 md:mt-0">
+                            <button id="theme-toggle"
+                                class="p-2 rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-blue-50 dark:hover:bg-gray-700 focus:outline-none transition-all duration-300 shadow-sm hover:shadow text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 w-10 h-10 flex items-center justify-center group transform hover:-translate-y-0.5">
+                                <i class="fas fa-moon transition-transform duration-300 group-hover:rotate-12"></i>
+                            </button>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Cybersecurity Banner -->
+    <div class="bg-gradient-to-r from-blue-900 via-indigo-900 to-blue-900 text-white py-2 px-4 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.4\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+        </div>
+        <div class="relative container mx-auto px-4 flex flex-wrap items-center justify-center gap-4">
+            <div class="flex items-center gap-2">
+                <i class="fas fa-shield-halved text-cyan-400"></i>
+                <span class="font-mono text-sm tracking-wider">
+                    <span class="text-cyan-400">$></span>
+                    <span class="typewriter-text" id="securityBanner"></span>
+                </span>
+            </div>
+            <div class="hidden md:flex items-center gap-4 text-xs">
+                <span class="flex items-center gap-1"><i class="fas fa-circle text-green-500 text-[8px]"></i> Threat Intelligence Active</span>
+                <span class="flex items-center gap-1"><i class="fas fa-circle text-green-500 text-[8px]"></i> SIEM Monitoring</span>
+                <span class="flex items-center gap-1"><i class="fas fa-circle text-green-500 text-[8px]"></i> IDS/IPS Enabled</span>
+            </div>
+            <div class="flex items-center gap-2 text-xs">
+                <span class="px-2 py-1 bg-blue-800/50 rounded-full border border-blue-600">#CybersecurityAnalyst</span>
+                <span class="px-2 py-1 bg-blue-800/50 rounded-full border border-blue-600">#EthicalHacker</span>
+            </div>
+        </div>
+    </div>
+
+    <main class="container mx-auto flex flex-col">
+        <section
+            class="relative flex-grow min-h-[620px] flex flex-col items-center justify-center overflow-hidden bg-gray-50 dark:bg-gray-900 transition-colors duration-300"
+            id="home">
+            <div class="absolute inset-0 z-0">
+                <img src="/static/images/bgImg2.jpg" alt="Background"
+                    class="w-full h-full object-cover opacity-20 dark:opacity-20">
+            </div>
+            <div class="flex flex-col-reverse md:flex-row items-center px-8 md:px-16 justify-between w-full gap-10">
+                <div class="relative z-10 w-full md:w-1/2 text-center md:text-left">
+                    <h3 class="text-xl font-poppins font-medium text-blue-600 dark:text-blue-400 mb-6 flex items-center gap-2 md:justify-start justify-center">
+                        <span class="inline-block w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
+                        Hello, I am
+                    </h3>
+                    <h1 class="glitch text-4xl md:text-7xl font-bold font-philosopher text-gray-900 dark:text-white mb-8" data-text="Recall Tawanda Mabika">
+                        Recall Tawanda Mabika
+                    </h1>
+                    <div class="flex items-center gap-3 mb-4 justify-center md:justify-start">
+                        <span class="font-mono text-sm text-gray-500 dark:text-gray-400">
+                            <span class="text-cyan-500">></span> cybersecurity@portfolio
+                        </span>
+                        <span class="text-gray-400">~</span>
+                        <span class="font-mono text-sm text-gray-500 dark:text-gray-400">
+                            <span class="text-red-500">$</span> whoami
+                        </span>
+                    </div>
+                    <h2 id="subtitle" class="text-2xl font-roboto text-gray-600 dark:text-gray-300 mb-6 h-8"></h2>
+                    
+                    <!-- Quick Security Stats -->
+                    <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+                        <div class="flex items-center gap-2 px-3 py-1.5 bg-green-100 dark:bg-green-900/30 rounded-full">
+                            <i class="fas fa-shield-halved text-green-600 dark:text-green-400 text-sm"></i>
+                            <span class="text-xs font-mono text-green-700 dark:text-green-300">THREAT_HUNTER</span>
+                        </div>
+                        <div class="flex items-center gap-2 px-3 py-1.5 bg-blue-100 dark:bg-blue-900/30 rounded-full">
+                            <i class="fas fa-terminal text-blue-600 dark:text-blue-400 text-sm"></i>
+                            <span class="text-xs font-mono text-blue-700 dark:text-blue-300">PENTEST+</span>
+                        </div>
+                        <div class="flex items-center gap-2 px-3 py-1.5 bg-purple-100 dark:bg-purple-900/30 rounded-full">
+                            <i class="fas fa-network-wired text-purple-600 dark:text-purple-400 text-sm"></i>
+                            <span class="text-xs font-mono text-purple-700 dark:text-purple-300">NETWORK_DEFENSE</span>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="relative z-10 w-full md:w-1/2 flex justify-center md:justify-end md:absolute md:bottom-0 md:right-0 md:pr-16">
+                    <img src="/static/images/owner_img.png" alt="Recall Tawanda Mabika"
+                        class="w-80 h-80 md:w-[520px] md:h-[550px] rounded-t-3xl object-cover">
+                </div>
+            </div>
+        </section>
+
+        <section id="about"
+            class="relative flex-grow py-20 min-h-[620px] bg-gray-50 dark:bg-gray-950 transition-colors duration-300 overflow-hidden">
+            <div class="absolute inset-0 z-0">
+                <img src="/static/images/bg.jpg" alt="About Background"
+                    class="w-full h-full object-cover opacity-20 dark:opacity-10">
+            </div>
+            <div class="relative z-10 container mx-auto px-8 md:px-16">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold font-poppins text-gray-800 dark:text-white">About Me</h2>
+                </div>
+
+                <div class="flex flex-col lg:flex-row gap-12 items-center mb-16">
+                    <!-- Text Column -->
+                    <div class="w-full lg:w-1/2">
+                        <h3
+                            class="text-2xl font-bold font-poppins text-gray-800 dark:text-white mb-6 relative inline-block">
+                            Who I Am
+                            <span class="absolute bottom-0 left-0 w-1/2 h-1 bg-blue-600 rounded"></span>
+                        </h3>
+                        <p class="text-lg text-gray-600 dark:text-gray-300 text-justify font-lato leading-relaxed mb-6">
+                            I am a dedicated Cybersecurity Analyst and Network Engineer with a passion for securing
+                            digital infrastructures. My journey began with a curiosity for how systems work, which
+                            evolved into a career focused on protecting them.
+                        </p>
+                        <p class="text-lg text-gray-600 dark:text-gray-300 text-justify font-lato leading-relaxed mb-8">
+                            Currently pursuing a <b>Bachelor of Science Honours Degree in Computer Science</b>, my
+                            academic and career focus lies in Network Security, Penetration Testing, and Web
+                            Development. I thrive on solving complex problems and staying ahead of emerging threats in
+                            the digital landscape.
+                        </p>
+                    </div>
+
+                    <!-- Decorative Security Element -->
+                    <div class="w-full lg:w-1/2 relative">
+                        <div class="relative rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-blue-900 to-indigo-900 p-8 border border-blue-500/30">
+                            <div class="absolute top-0 right-0 opacity-10">
+                                <i class="fas fa-shield-halved text-9xl text-white"></i>
+                            </div>
+                            <div class="relative z-10">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <i class="fas fa-lock text-3xl text-cyan-400"></i>
+                                    <h3 class="text-xl font-bold text-white">Security-First Mindset</h3>
+                                </div>
+                                <p class="text-gray-300 leading-relaxed">
+                                    Every line of code I write and every network I configure is approached with a security-first mindset. 
+                                    I believe in proactive defense rather than reactive response.
+                                </p>
+                                <div class="mt-6 grid grid-cols-2 gap-3">
+                                    <div class="flex items-center gap-2 text-gray-300">
+                                        <i class="fas fa-check-circle text-green-400 text-sm"></i>
+                                        <span>Threat Detection</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-gray-300">
+                                        <i class="fas fa-check-circle text-green-400 text-sm"></i>
+                                        <span>Penetration Testing</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-gray-300">
+                                        <i class="fas fa-check-circle text-green-400 text-sm"></i>
+                                        <span>Incident Response</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-gray-300">
+                                        <i class="fas fa-check-circle text-green-400 text-sm"></i>
+                                        <span>Network Security</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="absolute -z-10 top-6 -right-6 w-full h-full border-2 border-blue-600/30 rounded-2xl hidden lg:block">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Counters Row -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+                    <!-- Experience -->
+                    <div
+                        class="relative p-8 bg-white dark:bg-gray-900 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700 overflow-hidden group hover:-translate-y-2 counter-card opacity-0 translate-y-10 dark:shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+                        <div
+                            class="absolute right-0 top-0 opacity-5 group-hover:opacity-10 transition-opacity duration-500">
+                            <i
+                                class="fas fa-briefcase text-9xl text-blue-600 dark:text-blue-400 transform rotate-12 translate-x-8 -translate-y-8"></i>
+                        </div>
+                        <div class="relative z-10">
+                            <div class="flex items-baseline mb-2">
+                                <span class="text-6xl font-bold text-gray-800 dark:text-white counter"
+                                    data-target="100">0</span>
+                                <span class="text-4xl font-semibold text-blue-600 dark:text-blue-400 ml-1">%</span>
+                            </div>
+                            <h4 class="text-lg font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                Commitment</h4>
+                            <div
+                                class="mt-6 h-1.5 w-12 bg-blue-600 rounded-full group-hover:w-full transition-all duration-500 ease-out">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Projects -->
+                    <div
+                        class="relative p-8 bg-white dark:bg-gray-900 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700 overflow-hidden group hover:-translate-y-2 counter-card opacity-0 translate-y-10 dark:shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+                        <div
+                            class="absolute right-0 top-0 opacity-5 group-hover:opacity-10 transition-opacity duration-500">
+                            <i
+                                class="fas fa-project-diagram text-9xl text-blue-600 dark:text-blue-400 transform rotate-12 translate-x-8 -translate-y-8"></i>
+                        </div>
+                        <div class="relative z-10">
+                            <div class="flex items-baseline mb-2">
+                                <span class="text-6xl font-bold text-gray-800 dark:text-white counter"
+                                    data-target="10">0</span>
+                                <span class="text-4xl font-semibold text-blue-600 dark:text-blue-400 ml-1">+</span>
+                            </div>
+                            <h4 class="text-lg font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                Completed Labs</h4>
+                            <div
+                                class="mt-6 h-1.5 w-12 bg-blue-600 rounded-full group-hover:w-full transition-all duration-500 ease-out">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Certifications -->
+                    <div
+                        class="relative p-8 bg-white dark:bg-gray-900 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700 overflow-hidden group hover:-translate-y-2 counter-card opacity-0 translate-y-10 dark:shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+                        <div
+                            class="absolute right-0 top-0 opacity-5 group-hover:opacity-10 transition-opacity duration-500">
+                            <i
+                                class="fas fa-certificate text-9xl text-blue-600 dark:text-blue-400 transform rotate-12 translate-x-8 -translate-y-8"></i>
+                        </div>
+                        <div class="relative z-10">
+                            <div class="flex items-baseline mb-2">
+                                <span class="text-6xl font-bold text-gray-800 dark:text-white counter"
+                                    data-target="6">0</span>
+                                <span class="text-4xl font-semibold text-blue-600 dark:text-blue-400 ml-1">+</span>
+                            </div>
+                            <h4 class="text-lg font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                Certifications</h4>
+                            <div
+                                class="mt-6 h-1.5 w-12 bg-blue-600 rounded-full group-hover:w-full transition-all duration-500 ease-out">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills -->
+        <section id="skills" class="min-h-[620px] py-20 bg-white dark:bg-gray-900 transition-colors duration-300">
+            <div class="container mx-auto px-8 md:px-16">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold font-poppins text-gray-800 dark:text-white">My Skills</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Programming Languages -->
+                    <div
+                        class="bg-gray-50 dark:bg-gray-800 p-8 rounded-2xl shadow-lg border-t-4 border-blue-500 hover:-translate-y-2 transition-transform duration-300">
+                        <div class="flex items-center justify-center mb-6">
+                            <i class="fas fa-code text-3xl text-blue-500 mr-4"></i>
+                            <h3 class="text-2xl font-bold font-poppins text-gray-800 dark:text-white">Programming
+                                Languages</h3>
+                        </div>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                            <div class="flex flex-col items-center p-2 hover:bg-white dark:hover:bg-gray-700 rounded-lg transition-colors">
+                                <i class="fab fa-python text-3xl text-yellow-500 mb-2"></i>
+                                <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Python</span>
+                            </div>
+                            <div class="flex flex-col items-center p-2 hover:bg-white dark:hover:bg-gray-700 rounded-lg transition-colors">
+                                <i class="fab fa-js text-3xl text-yellow-400 mb-2"></i>
+                                <span class="text-sm font-medium text-gray-600 dark:text-gray-300">JavaScript</span>
+                            </div>
+                            <div class="flex flex-col items-center p-2 hover:bg-white dark:hover:bg-gray-700 rounded-lg transition-colors">
+                                <i class="fas fa-terminal text-3xl text-gray-500 dark:text-gray-400 mb-2"></i>
+                                <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Bash</span>
+                            </div>
+                            <div class="flex flex-col items-center p-2 hover:bg-white dark:hover:bg-gray-700 rounded-lg transition-colors">
+                                <i class="fas fa-database text-3xl text-blue-500 mb-2"></i>
+                                <span class="text-sm font-medium text-gray-600 dark:text-gray-300">SQL</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Frameworks / Libraries -->
+                    <div
+                        class="bg-gray-50 dark:bg-gray-800 p-8 rounded-2xl shadow-lg border-t-4 border-green-500 hover:-translate-y-2 transition-transform duration-300">
+                        <div class="flex items-center justify-center mb-6">
+                            <i class="fas fa-layer-group text-3xl text-green-500 mr-4"></i>
+                            <h3 class="text-2xl font-bold font-poppins text-gray-800 dark:text-white">Frameworks &
+                                Libraries</h3>
+                        </div>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                            <div class="flex flex-col items-center p-2 hover:bg-white dark:hover:bg-gray-700 rounded-lg transition-colors">
+                                <i class="fas fa-flask text-3xl text-gray-700 dark:text-gray-300 mb-2"></i>
+                                <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Flask</span>
+                            </div>
+                            <div class="flex flex-col items-center p-2 hover:bg-white dark:hover:bg-gray-700 rounded-lg transition-colors">
+                                <i class="fab fa-python text-3xl text-green-600 mb-2"></i>
+                                <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Django</span>
+                            </div>
+                            <div class="flex flex-col items-center p-2 hover:bg-white dark:hover:bg-gray-700 rounded-lg transition-colors">
+                                <i class="fas fa-wind text-3xl text-teal-400 mb-2"></i>
+                                <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Tailwind</span>
+                            </div>
+                            <div class="flex flex-col items-center p-2 hover:bg-white dark:hover:bg-gray-700 rounded-lg transition-colors">
+                                <i class="fab fa-bootstrap text-3xl text-purple-600 mb-2"></i>
+                                <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Bootstrap</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tools / Platforms -->
+                    <div
+                        class="bg-gray-50 dark:bg-gray-800 p-8 rounded-2xl shadow-lg border-t-4 border-purple-500 hover:-translate-y-2 transition-transform duration-300">
+                        <div class="flex items-center justify-center mb-6">
+                            <i class="fas fa-tools text-3xl text-purple-500 mr-4"></i>
+                            <h3 class="text-2xl font-bold font-poppins text-gray-800 dark:text-white">Security Tools
+                            </h3>
+                        </div>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                            <div class="flex flex-col items-center p-2 hover:bg-white dark:hover:bg-gray-700 rounded-lg transition-colors">
+                                <i class="fas fa-bug text-3xl text-orange-500 mb-2"></i>
+                                <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Burp Suite</span>
+                            </div>
+                            <div class="flex flex-col items-center p-2 hover:bg-white dark:hover:bg-gray-700 rounded-lg transition-colors">
+                                <i class="fas fa-crosshairs text-3xl text-green-500 mb-2"></i>
+                                <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Nmap</span>
+                            </div>
+                            <div class="flex flex-col items-center p-2 hover:bg-white dark:hover:bg-gray-700 rounded-lg transition-colors">
+                                <i class="fas fa-network-wired text-3xl text-indigo-500 mb-2"></i>
+                                <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Wireshark</span>
+                            </div>
+                            <div class="flex flex-col items-center p-2 hover:bg-white dark:hover:bg-gray-700 rounded-lg transition-colors">
+                                <i class="fas fa-bomb text-3xl text-red-600 mb-2"></i>
+                                <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Metasploit</span>
+                            </div>
+                            <div class="flex flex-col items-center p-2 hover:bg-white dark:hover:bg-gray-700 rounded-lg transition-colors">
+                                <i class="fab fa-git-alt text-3xl text-red-500 mb-2"></i>
+                                <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Git/GitHub</span>
+                            </div>
+                            <div class="flex flex-col items-center p-2 hover:bg-white dark:hover:bg-gray-700 rounded-lg transition-colors">
+                                <i class="fab fa-docker text-3xl text-blue-500 mb-2"></i>
+                                <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Docker</span>
+                            </div>
+                            <div class="flex flex-col items-center p-2 hover:bg-white dark:hover:bg-gray-700 rounded-lg transition-colors">
+                                <i class="fas fa-sitemap text-3xl text-blue-600 mb-2"></i>
+                                <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Packet Tracer</span>
+                            </div>
+                            <div class="flex flex-col items-center p-2 hover:bg-white dark:hover:bg-gray-700 rounded-lg transition-colors">
+                                <i class="fab fa-linux text-3xl text-gray-800 dark:text-white mb-2"></i>
+                                <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Linux</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Databases -->
+                    <div
+                        class="bg-gray-50 dark:bg-gray-800 p-8 rounded-2xl shadow-lg border-t-4 border-yellow-500 hover:-translate-y-2 transition-transform duration-300">
+                        <div class="flex items-center justify-center mb-6">
+                            <i class="fas fa-database text-3xl text-yellow-500 mr-4"></i>
+                            <h3 class="text-2xl font-bold font-poppins text-gray-800 dark:text-white">Databases</h3>
+                        </div>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                            <div class="flex flex-col items-center p-2 hover:bg-white dark:hover:bg-gray-700 rounded-lg transition-colors">
+                                <i class="fas fa-database text-3xl text-blue-600 mb-2"></i>
+                                <span class="text-sm font-medium text-gray-600 dark:text-gray-300">PostgreSQL</span>
+                            </div>
+                            <div class="flex flex-col items-center p-2 hover:bg-white dark:hover:bg-gray-700 rounded-lg transition-colors">
+                                <i class="fas fa-database text-3xl text-orange-500 mb-2"></i>
+                                <span class="text-sm font-medium text-gray-600 dark:text-gray-300">MySQL</span>
+                            </div>
+                            <div class="flex flex-col items-center p-2 hover:bg-white dark:hover:bg-gray-700 rounded-lg transition-colors">
+                                <i class="fas fa-file-code text-3xl text-blue-400 mb-2"></i>
+                                <span class="text-sm font-medium text-gray-600 dark:text-gray-300">SQLite</span>
+                            </div>
+                            <div class="flex flex-col items-center p-2 hover:bg-white dark:hover:bg-gray-700 rounded-lg transition-colors">
+                                <i class="fas fa-server text-3xl text-green-600 mb-2"></i>
+                                <span class="text-sm font-medium text-gray-600 dark:text-gray-300">MariaDB</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certifications -->
+        <section id="certifications"
+            class="min-h-[620px] py-20 bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
+            <div class="container mx-auto px-8 md:px-16">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold font-poppins text-gray-800 dark:text-white">Certifications</h2>
+                    <p class="text-gray-600 dark:text-gray-400 mt-2">Professional certifications validating my cybersecurity expertise</p>
+                </div>
+
+                <!-- Earned Certifications -->
+                <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-6 flex items-center">
+                    <i class="fas fa-check-circle text-green-500 mr-2"></i> Earned Certifications
+                </h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 mb-12">
+                    <!-- Cisco: Introduction to Cybersecurity -->
+                    <div
+                        class="group relative bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700 overflow-hidden hover:-translate-y-2">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                        </div>
+                        <div class="relative z-10 flex flex-col h-full">
+                            <div class="flex justify-between items-start mb-6">
+                                <div
+                                    class="w-14 h-14 rounded-2xl bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-blue-600 dark:text-blue-400 shadow-sm group-hover:scale-110 transition-transform duration-300">
+                                    <i class="fas fa-shield-halved text-2xl"></i>
+                                </div>
+                                <span
+                                    class="px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400 uppercase tracking-wide">Completed</span>
+                            </div>
+                            <h3
+                                class="text-xl font-bold font-poppins text-gray-800 dark:text-white mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                                Introduction to Cybersecurity</h3>
+                            <p class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Cisco Networking Academy</p>
+                            <p class="text-xs text-gray-400 dark:text-gray-500 mb-4">Fundamentals of cybersecurity, threat landscape, and security principles.</p>
+                            <div
+                                class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700 flex items-center justify-between">
+                                <div class="flex flex-col">
+                                    <span class="text-xs text-gray-400 uppercase tracking-wider font-semibold">Issued</span>
+                                    <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">April 2025</span>
+                                </div>
+                                <a href="https://www.dropbox.com/scl/fi/icwzx9lo0ps3xmyj2nbnf/_certificate_recallmabika-gmail-com_1c9fef88-56cb-4736-9e92-722fefb894a5.pdf?rlkey=oww27rzta16mj9cv2901a0f0x&st=ntr6up72&dl=0"
+                                    target="_blank"
+                                    class="w-10 h-10 rounded-full bg-blue-50 dark:bg-gray-700 flex items-center justify-center text-blue-600 dark:text-blue-400 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-500 dark:hover:text-white transition-all duration-300 shadow-sm"
+                                    title="View Certificate">
+                                    <i class="fas fa-external-link-alt text-sm"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Microsoft: Student SOC Program -->
+                    <div
+                        class="group relative bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700 overflow-hidden hover:-translate-y-2">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                        </div>
+                        <div class="relative z-10 flex flex-col h-full">
+                            <div class="flex justify-between items-start mb-6">
+                                <div
+                                    class="w-14 h-14 rounded-2xl bg-indigo-50 dark:bg-indigo-900/20 flex items-center justify-center text-indigo-600 dark:text-indigo-400 shadow-sm group-hover:scale-110 transition-transform duration-300">
+                                    <i class="fab fa-microsoft text-2xl"></i>
+                                </div>
+                                <span
+                                    class="px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400 uppercase tracking-wide">Completed</span>
+                            </div>
+                            <h3
+                                class="text-xl font-bold font-poppins text-gray-800 dark:text-white mb-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                                Student SOC Program Foundation</h3>
+                            <p class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Microsoft</p>
+                            <p class="text-xs text-gray-400 dark:text-gray-500 mb-4">Security Operations Center fundamentals and incident response training.</p>
+                            <div
+                                class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700 flex items-center justify-between">
+                                <div class="flex flex-col">
+                                    <span class="text-xs text-gray-400 uppercase tracking-wider font-semibold">Issued</span>
+                                    <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">May 2025</span>
+                                </div>
+                                <a href="https://www.dropbox.com/scl/fi/ago27mwliom6hy7xtbrbu/Certificate_of_completion.pdf?rlkey=bibs7rfpl68dbz52nrjboa8xp&st=j8lscduz&dl=0"
+                                    target="_blank"
+                                    class="w-10 h-10 rounded-full bg-indigo-50 dark:bg-gray-700 flex items-center justify-center text-indigo-600 dark:text-indigo-400 hover:bg-indigo-600 hover:text-white dark:hover:bg-indigo-500 dark:hover:text-white transition-all duration-300 shadow-sm"
+                                    title="View Certificate">
+                                    <i class="fas fa-external-link-alt text-sm"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cyberus: Certified Offensive Security Explorer -->
+                    <div
+                        class="group relative bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700 overflow-hidden hover:-translate-y-2">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-red-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                        </div>
+                        <div class="relative z-10 flex flex-col h-full">
+                            <div class="flex justify-between items-start mb-6">
+                                <div
+                                    class="w-14 h-14 rounded-2xl bg-red-50 dark:bg-red-900/20 flex items-center justify-center text-red-600 dark:text-red-400 shadow-sm group-hover:scale-110 transition-transform duration-300">
+                                    <i class="fas fa-user-secret text-2xl"></i>
+                                </div>
+                                <span
+                                    class="px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400 uppercase tracking-wide">Completed</span>
+                            </div>
+                            <h3
+                                class="text-xl font-bold font-poppins text-gray-800 dark:text-white mb-1 group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors">
+                                Certified Offensive Security Explorer</h3>
+                            <p class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Cyberus</p>
+                            <p class="text-xs text-gray-400 dark:text-gray-500 mb-4">Primary access attacks, privilege escalation, and web vulnerability assessment.</p>
+                            <div
+                                class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700 flex items-center justify-between">
+                                <div class="flex flex-col">
+                                    <span class="text-xs text-gray-400 uppercase tracking-wider font-semibold">Issued</span>
+                                    <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">March 2026</span>
+                                </div>
+                                <div
+                                    class="w-10 h-10 rounded-full bg-red-50 dark:bg-gray-700 flex items-center justify-center text-red-600 dark:text-red-400"
+                                    title="Certificate Available">
+                                    <i class="fas fa-certificate text-sm"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MetBrains: 7-Day Cyber Camp -->
+                    <div
+                        class="group relative bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700 overflow-hidden hover:-translate-y-2">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                        </div>
+                        <div class="relative z-10 flex flex-col h-full">
+                            <div class="flex justify-between items-start mb-6">
+                                <div
+                                    class="w-14 h-14 rounded-2xl bg-purple-50 dark:bg-purple-900/20 flex items-center justify-center text-purple-600 dark:text-purple-400 shadow-sm group-hover:scale-110 transition-transform duration-300">
+                                    <i class="fas fa-laptop-code text-2xl"></i>
+                                </div>
+                                <span
+                                    class="px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400 uppercase tracking-wide">Completed</span>
+                            </div>
+                            <h3
+                                class="text-xl font-bold font-poppins text-gray-800 dark:text-white mb-1 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                                7-Day Cyber Camp</h3>
+                            <p class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">MetBrains</p>
+                            <p class="text-xs text-gray-400 dark:text-gray-500 mb-4">Intensive hands-on cybersecurity training and practical exercises.</p>
+                            <div
+                                class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700 flex items-center justify-between">
+                                <div class="flex flex-col">
+                                    <span class="text-xs text-gray-400 uppercase tracking-wider font-semibold">Issued</span>
+                                    <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">2026</span>
+                                </div>
+                                <div
+                                    class="w-10 h-10 rounded-full bg-purple-50 dark:bg-gray-700 flex items-center justify-center text-purple-600 dark:text-purple-400"
+                                    title="Certificate of Recognition">
+                                    <i class="fas fa-award text-sm"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pending Certifications -->
+                <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-6 flex items-center">
+                    <i class="fas fa-hourglass-half text-yellow-500 mr-2"></i> In Progress
+                </h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Cisco: Ethical Hacker -->
+                    <div
+                        class="group relative bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border border-yellow-200 dark:border-yellow-800 overflow-hidden hover:-translate-y-2">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-yellow-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                        </div>
+                        <div class="relative z-10 flex flex-col h-full">
+                            <div class="flex justify-between items-start mb-6">
+                                <div
+                                    class="w-14 h-14 rounded-2xl bg-yellow-50 dark:bg-yellow-900/20 flex items-center justify-center text-yellow-600 dark:text-yellow-400 shadow-sm group-hover:scale-110 transition-transform duration-300">
+                                    <i class="fas fa-user-ninja text-2xl"></i>
+                                </div>
+                                <span
+                                    class="px-3 py-1 rounded-full text-xs font-bold bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400 uppercase tracking-wide">In Progress</span>
+                            </div>
+                            <h3
+                                class="text-xl font-bold font-poppins text-gray-800 dark:text-white mb-1 group-hover:text-yellow-600 dark:group-hover:text-yellow-400 transition-colors">
+                                Ethical Hacker</h3>
+                            <p class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4">Cisco Networking Academy</p>
+                            <div class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="text-xs text-gray-400 font-semibold uppercase tracking-wider">Progress</span>
+                                    <span class="text-xs text-yellow-600 dark:text-yellow-400 font-bold">65%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                    <div class="bg-gradient-to-r from-yellow-500 to-yellow-400 h-2 rounded-full w-2/3 animate-pulse"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cisco: Networking Basics -->
+                    <div
+                        class="group relative bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border border-yellow-200 dark:border-yellow-800 overflow-hidden hover:-translate-y-2">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-green-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                        </div>
+                        <div class="relative z-10 flex flex-col h-full">
+                            <div class="flex justify-between items-start mb-6">
+                                <div
+                                    class="w-14 h-14 rounded-2xl bg-green-50 dark:bg-green-900/20 flex items-center justify-center text-green-600 dark:text-green-400 shadow-sm group-hover:scale-110 transition-transform duration-300">
+                                    <i class="fas fa-network-wired text-2xl"></i>
+                                </div>
+                                <span
+                                    class="px-3 py-1 rounded-full text-xs font-bold bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400 uppercase tracking-wide">In Progress</span>
+                            </div>
+                            <h3
+                                class="text-xl font-bold font-poppins text-gray-800 dark:text-white mb-1 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">
+                                Networking Basics</h3>
+                            <p class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4">Cisco Networking Academy</p>
+                            <div class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="text-xs text-gray-400 font-semibold uppercase tracking-wider">Progress</span>
+                                    <span class="text-xs text-yellow-600 dark:text-yellow-400 font-bold">40%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                    <div class="bg-gradient-to-r from-green-500 to-emerald-400 h-2 rounded-full w-2/5 animate-pulse"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- EC-Council: Information Security -->
+                    <div
+                        class="group relative bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border border-yellow-200 dark:border-yellow-800 overflow-hidden hover:-translate-y-2">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                        </div>
+                        <div class="relative z-10 flex flex-col h-full">
+                            <div class="flex justify-between items-start mb-6">
+                                <div
+                                    class="w-14 h-14 rounded-2xl bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-blue-600 dark:text-blue-400 shadow-sm group-hover:scale-110 transition-transform duration-300">
+                                    <i class="fas fa-building-shield text-2xl"></i>
+                                </div>
+                                <span
+                                    class="px-3 py-1 rounded-full text-xs font-bold bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400 uppercase tracking-wide">In Progress</span>
+                            </div>
+                            <h3
+                                class="text-xl font-bold font-poppins text-gray-800 dark:text-white mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                                Information Security Analyst</h3>
+                            <p class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4">EC-Council</p>
+                            <div class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="text-xs text-gray-400 font-semibold uppercase tracking-wider">Progress</span>
+                                    <span class="text-xs text-yellow-600 dark:text-yellow-400 font-bold">25%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                    <div class="bg-gradient-to-r from-blue-500 to-cyan-400 h-2 rounded-full w-1/4 animate-pulse"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact"
+            class="relative py-20 bg-gray-100 dark:bg-gray-950 transition-colors duration-300 overflow-hidden">
+            <div class="absolute inset-0 z-0">
+                <img src="/static/images/avi_img3.avif" alt="Contact Background"
+                    class="w-full h-full object-cover opacity-20 dark:opacity-20 blur-[2px]">
+            </div>
+
+            <div
+                class="relative z-10 container mx-auto px-4 md:px-8 lg:px-16 flex flex-col items-center justify-center min-h-[620px]">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold font-poppins text-gray-800 dark:text-white">Contact</h2>
+                </div>
+                <div
+                    class="w-full max-w-6xl bg-white dark:bg-gray-900 rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row transform transition-all hover:shadow-3xl">
+
+                    <!-- Left Side: Info Panel -->
+                    <div
+                        class="w-full md:w-2/5 bg-gradient-to-br from-blue-700 to-indigo-800 p-10 text-white relative overflow-hidden flex flex-col justify-between">
+                        <div class="absolute -top-12 -right-12 w-40 h-40 bg-white opacity-5 rounded-full blur-2xl"></div>
+                        <div class="absolute -bottom-12 -left-12 w-40 h-40 bg-white opacity-5 rounded-full blur-2xl"></div>
+
+                        <div class="relative z-10">
+                            <h2 class="text-3xl font-bold font-poppins mb-2">Let's Connect</h2>
+                            <p class="text-blue-100 font-lato opacity-90 text-sm leading-relaxed mb-8">
+                                I'm open to new opportunities and collaborations. Whether you have a question or just
+                                want to say hi, I'll try my best to get back to you!
+                            </p>
+
+                            <div class="space-y-6">
+                                <div class="flex items-start group">
+                                    <div
+                                        class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0 group-hover:bg-white/20 transition-colors duration-300">
+                                        <i class="fas fa-envelope text-lg"></i>
+                                    </div>
+                                    <div class="ml-4">
+                                        <p class="text-xs text-blue-200 uppercase tracking-wider font-semibold mb-1">Email</p>
+                                        <span class="text-sm md:text-base font-medium tracking-wide">recallmabika(at)gmail(dot)com</span>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start group">
+                                    <div
+                                        class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0 group-hover:bg-white/20 transition-colors duration-300">
+                                        <i class="fas fa-phone-alt text-lg"></i>
+                                    </div>
+                                    <div class="ml-4">
+                                        <p class="text-xs text-blue-200 uppercase tracking-wider font-semibold mb-1">Phone</p>
+                                        <span class="text-sm md:text-base font-medium tracking-wide">
+                                            <a href="tel:+263777466786"
+                                                class="hover:text-white transition-colors border-b border-transparent hover:border-white">+263 77 746 6786</a> |
+                                            <a href="tel:+263718001031"
+                                                class="hover:text-white transition-colors border-b border-transparent hover:border-white">+263 71 800 1031</a>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start group">
+                                    <div
+                                        class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0 group-hover:bg-white/20 transition-colors duration-300">
+                                        <i class="fas fa-map-marker-alt text-lg"></i>
+                                    </div>
+                                    <div class="ml-4">
+                                        <p class="text-xs text-blue-200 uppercase tracking-wider font-semibold mb-1">Location</p>
+                                        <span class="text-sm md:text-base font-medium tracking-wide">Chipinge, Zimbabwe</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-10 relative z-10">
+                            <p class="text-sm text-blue-200 font-semibold mb-4">Find me on</p>
+                            <div class="flex space-x-4">
+                                <a href="https://www.linkedin.com/in/recallmabika" target="_blank"
+                                    class="w-10 h-10 rounded-full border border-blue-400/30 bg-blue-800/20 flex items-center justify-center text-white hover:bg-white hover:text-blue-700 hover:border-white transition-all duration-300">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="https://github.com/recallmabika" target="_blank"
+                                    class="w-10 h-10 rounded-full border border-blue-400/30 bg-blue-800/20 flex items-center justify-center text-white hover:bg-white hover:text-blue-700 hover:border-white transition-all duration-300">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="https://www.youtube.com/@CYBERT-HUB" target="_blank"
+                                    class="w-10 h-10 rounded-full border border-blue-400/30 bg-blue-800/20 flex items-center justify-center text-white hover:bg-white hover:text-blue-700 hover:border-white transition-all duration-300">
+                                    <i class="fab fa-youtube"></i>
+                                </a>
+                                <a href="https://wa.me/263779466786" target="_blank"
+                                    class="w-10 h-10 rounded-full border border-blue-400/30 bg-blue-800/20 flex items-center justify-center text-white hover:bg-white hover:text-blue-700 hover:border-white transition-all duration-300">
+                                    <i class="fab fa-whatsapp"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Side: Form -->
+                    <div class="w-full md:w-3/5 p-10 bg-gray-50 dark:bg-gray-900">
+                        <form id="contactForm" method="post" class="space-y-6" novalidate>
+                            <p class="text-sm text-blue-600 dark:text-blue-400 font-bold uppercase tracking-widest mb-1">Contact</p>
+                            <h3 class="text-2xl font-bold text-gray-800 dark:text-white mb-6">Send a Message</h3>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="relative">
+                                    <input type="text" id="name" name="name" required
+                                        class="peer w-full px-4 py-3 border border-gray-200 dark:border-gray-700 bg-transparent text-gray-900 dark:text-white rounded-lg focus:outline-none focus:border-blue-600 dark:focus:border-blue-400 transition-colors placeholder-transparent"
+                                        placeholder="Name">
+                                    <label for="name"
+                                        class="absolute left-4 -top-2.5 bg-gray-50 dark:bg-gray-900 px-1 text-gray-500 dark:text-gray-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3.5 peer-focus:-top-2.5 peer-focus:text-gray-600 peer-focus:dark:text-gray-300 peer-focus:text-sm">Name</label>
+                                    <p id="nameError" class="text-red-500 text-xs mt-1 ml-1 hidden">Name is required.</p>
+                                </div>
+                                <div class="relative">
+                                    <input type="email" id="email" name="email" required
+                                        class="peer w-full px-4 py-3 border border-gray-200 dark:border-gray-700 bg-transparent text-gray-900 dark:text-white rounded-lg focus:outline-none focus:border-blue-600 dark:focus:border-blue-400 transition-colors placeholder-transparent"
+                                        placeholder="Email">
+                                    <label for="email"
+                                        class="absolute left-4 -top-2.5 bg-gray-50 dark:bg-gray-900 px-1 text-gray-500 dark:text-gray-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3.5 peer-focus:-top-2.5 peer-focus:text-gray-600 peer-focus:dark:text-gray-300 peer-focus:text-sm">Email</label>
+                                    <p id="emailError" class="text-red-500 text-xs mt-1 ml-1 hidden">Valid email is required.</p>
+                                </div>
+                            </div>
+
+                            <div class="relative">
+                                <input type="text" id="subject" name="subject" required
+                                    class="peer w-full px-4 py-3 border border-gray-200 dark:border-gray-700 bg-transparent text-gray-900 dark:text-white rounded-lg focus:outline-none focus:border-blue-600 dark:focus:border-blue-400 transition-colors placeholder-transparent"
+                                    placeholder="Subject">
+                                <label for="subject"
+                                    class="absolute left-4 -top-2.5 bg-gray-50 dark:bg-gray-900 px-1 text-gray-500 dark:text-gray-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3.5 peer-focus:-top-2.5 peer-focus:text-gray-600 peer-focus:dark:text-gray-300 peer-focus:text-sm">Subject</label>
+                                <p id="subjectError" class="text-red-500 text-xs mt-1 ml-1 hidden">Subject is required.</p>
+                            </div>
+
+                            <div class="relative">
+                                <textarea id="message" name="message" rows="4" required
+                                    class="peer w-full px-4 py-3 border border-gray-200 dark:border-gray-700 bg-transparent text-gray-900 dark:text-white rounded-lg focus:outline-none focus:border-blue-600 dark:focus:border-blue-400 transition-colors placeholder-transparent resize-none"
+                                    placeholder="Message"></textarea>
+                                <label for="message"
+                                    class="absolute left-4 -top-2.5 bg-gray-50 dark:bg-gray-900 px-1 text-gray-500 dark:text-gray-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3.5 peer-focus:-top-2.5 peer-focus:text-gray-600 peer-focus:dark:text-gray-300 peer-focus:text-sm">Message</label>
+                                <p id="messageError" class="text-red-500 text-xs mt-1 ml-1 hidden">Message is required.</p>
+                            </div>
+
+                            <div class="pt-4">
+                                <button type="submit"
+                                    class="group relative px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1 overflow-hidden w-full md:w-auto">
+                                    <span class="relative z-10">Send Message <i
+                                            class="fas fa-paper-plane ml-2 group-hover:translate-x-1 transition-transform"></i></span>
+                                    <div
+                                        class="absolute inset-0 h-full w-full scale-0 rounded-full transition-all duration-300 group-hover:scale-100 group-hover:bg-blue-700/50">
+                                    </div>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer
+        class="bg-white dark:bg-gray-900 pt-16 pb-8 border-t border-gray-200 dark:border-gray-800 transition-colors duration-300">
+        <div class="container mx-auto px-8 md:px-16">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+                <div class="col-span-1">
+                    <a href="#" class="text-2xl font-bold font-philosopher text-blue-600 dark:text-blue-400 mb-6 block">
+                        RECALL TAWANDA MABIKA
+                    </a>
+                    <p class="text-gray-600 dark:text-gray-400 font-lato leading-relaxed mb-6">
+                        Securing digital landscapes and building robust network infrastructures through dedicated
+                        analysis and engineering.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://www.linkedin.com/in/recallmabika" target="_blank"
+                            class="group w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 flex items-center justify-center text-gray-500 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white hover:border-blue-600 dark:hover:border-blue-600 transition-all duration-300 shadow-sm hover:shadow transform hover:-translate-y-1">
+                            <i class="fab fa-linkedin-in transition-transform duration-300 group-hover:rotate-12"></i>
+                        </a>
+                        <a href="https://github.com/recallmabika" target="_blank"
+                            class="group w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 flex items-center justify-center text-gray-500 hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 hover:border-gray-900 dark:hover:border-white transition-all duration-300 shadow-sm hover:shadow transform hover:-translate-y-1">
+                            <i class="fab fa-github transition-transform duration-300 group-hover:rotate-12"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@CYBERT-HUB" target="_blank"
+                            class="group w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 flex items-center justify-center text-gray-500 hover:bg-red-600 hover:text-white dark:hover:bg-red-600 dark:hover:text-white hover:border-red-600 dark:hover:border-red-600 transition-all duration-300 shadow-sm hover:shadow transform hover:-translate-y-1">
+                            <i class="fab fa-youtube transition-transform duration-300 group-hover:rotate-12"></i>
+                        </a>
+                        <a href="https://wa.me/263779466786" target="_blank"
+                            class="group w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 flex items-center justify-center text-gray-500 hover:bg-green-500 hover:text-white dark:hover:bg-green-500 dark:hover:text-white hover:border-green-500 dark:hover:border-green-500 transition-all duration-300 shadow-sm hover:shadow transform hover:-translate-y-1">
+                            <i class="fab fa-whatsapp transition-transform duration-300 group-hover:rotate-12"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-span-1 md:pl-8">
+                    <h4 class="text-lg font-bold font-poppins text-gray-800 dark:text-white mb-6 relative inline-block">
+                        Quick Links <span class="absolute -bottom-2 left-0 w-12 h-1 bg-blue-600 rounded"></span></h4>
+                    <ul class="space-y-3 font-lato">
+                        <li><a href="#home"
+                                class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center"><i
+                                    class="fas fa-chevron-right text-xs mr-2 text-blue-500"></i> Home</a></li>
+                        <li><a href="#about"
+                                class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center"><i
+                                    class="fas fa-chevron-right text-xs mr-2 text-blue-500"></i> About</a></li>
+                        <li><a href="#skills"
+                                class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center"><i
+                                    class="fas fa-chevron-right text-xs mr-2 text-blue-500"></i> Skills</a></li>
+                        <li><a href="#certifications"
+                                class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center"><i
+                                    class="fas fa-chevron-right text-xs mr-2 text-blue-500"></i> Certifications</a></li>
+                        <li><a href="#contact"
+                                class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center"><i
+                                    class="fas fa-chevron-right text-xs mr-2 text-blue-500"></i> Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-span-1">
+                    <h4 class="text-lg font-bold font-poppins text-gray-800 dark:text-white mb-6 relative inline-block">
+                        Get in Touch <span class="absolute -bottom-2 left-0 w-12 h-1 bg-blue-600 rounded"></span></h4>
+                    <ul class="space-y-4 font-lato">
+                        <li class="flex items-start text-gray-600 dark:text-gray-400 group">
+                            <div
+                                class="w-8 h-8 rounded bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center flex-shrink-0 mr-3 text-blue-600 dark:text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
+                                <i class="fas fa-envelope text-sm"></i>
+                            </div>
+                            <span class="mt-1">recallmabika(at)gmail(dot)com</span>
+                        </li>
+                        <li class="flex items-start text-gray-600 dark:text-gray-400 group">
+                            <div
+                                class="w-8 h-8 rounded bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center flex-shrink-0 mr-3 text-blue-600 dark:text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
+                                <i class="fas fa-phone-alt text-sm"></i>
+                            </div>
+                            <span class="mt-1">
+                                <a href="tel:+263777466786"
+                                    class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">+263 77 746 6786</a> |
+                                <a href="tel:+263718001031"
+                                    class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">+263 71 800 1031</a>
+                            </span>
+                        </li>
+                        <li class="flex items-start text-gray-600 dark:text-gray-400 group">
+                            <div
+                                class="w-8 h-8 rounded bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center flex-shrink-0 mr-3 text-blue-600 dark:text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
+                                <i class="fas fa-map-marker-alt text-sm"></i>
+                            </div>
+                            <span class="mt-1">Chipinge, Zimbabwe</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-gray-200 dark:border-gray-800 text-center">
+                <p class="text-gray-500 dark:text-gray-400 text-sm font-lato">
+                    &copy; <span id="currentYear"></span> Recall Tawanda Mabika. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop"
+        class="fixed bottom-8 right-6 bg-blue-600 text-white py-2 px-3 rounded-sm shadow-lg hover:bg-blue-700 transition-all duration-300 transform translate-y-20 opacity-0 z-50 focus:outline-none">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Custom JS -->
+    <script src="/static/js/main.js"></script>
+    
+    <!-- Security Banner Script -->
+    <script>
+        const bannerElement = document.getElementById('securityBanner');
+        if (bannerElement) {
+            const securityPhrases = [
+                'Cybersecurity Specialist • Threat Detection & Response',
+                'Network Security • Penetration Testing • Incident Response',
+                'Ethical Hacking • Vulnerability Assessment • SIEM',
+                'Certified Security Professional • Cisco • Microsoft'
+            ];
+            let phraseIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            
+            function typeBanner() {
+                const currentPhrase = securityPhrases[phraseIndex];
+                
+                if (isDeleting) {
+                    bannerElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                    charIndex--;
+                } else {
+                    bannerElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                    charIndex++;
+                }
+                
+                if (!isDeleting && charIndex === currentPhrase.length) {
+                    isDeleting = true;
+                    setTimeout(typeBanner, 3000);
+                    return;
+                }
+                
+                if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    phraseIndex = (phraseIndex + 1) % securityPhrases.length;
+                    setTimeout(typeBanner, 500);
+                    return;
+                }
+                
+                setTimeout(typeBanner, isDeleting ? 30 : 60);
+            }
+            
+            typeBanner();
+        }
+    </script>
+</body>
+
+</html>

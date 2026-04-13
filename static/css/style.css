@@ -1,0 +1,244 @@
+:root {
+    /* Main Branding & Headers */
+    --font-brand: 'Philosopher', sans-serif;
+    --font-hero: 'Playfair Display', serif;
+
+    /* UI & Interaction */
+    --font-ui: 'Inter', sans-serif;
+    --font-action: 'Poppins', sans-serif;
+
+    /* Body & Long-form */
+    --font-body: 'Roboto', sans-serif;
+}
+
+/* Applying to the Project Requirements */
+.nav-logo {
+    font-family: var(--font-brand);
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+h2.section-title {
+    font-family: var(--font-brand);
+    letter-spacing: 1px;
+}
+
+.counter-label {
+    font-family: var(--font-action);
+    font-weight: 500;
+}
+
+
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes fade-slow {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+}
+
+.animate-fade-slow {
+    animation: fade-slow 4s ease-in-out infinite;
+}
+
+@keyframes glitch-anim {
+    0% {
+        transform: translate(0) skew(0deg);
+    }
+
+    20% {
+        transform: translate(-2px, 1px) skew(-1deg);
+    }
+
+    40% {
+        transform: translate(-1px, -1px) skew(1deg);
+    }
+
+    60% {
+        transform: translate(1px, 1px) skew(0deg);
+    }
+
+    80% {
+        transform: translate(1px, -1px) skew(-1deg);
+    }
+
+    100% {
+        transform: translate(0) skew(0deg);
+    }
+}
+
+.glitch-hover:hover {
+    animation: glitch-anim 0.2s infinite;
+    filter: drop-shadow(-2px 0px 0px rgba(34, 211, 238, 0.5)) drop-shadow(2px 0px 0px rgba(239, 68, 68, 0.5));
+}
+
+/* Dark Mode Support */
+.dark {
+    color-scheme: dark;
+}
+
+/* Smooth theme transitions */
+.transition-colors {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+}
+
+/* Counter card animations */
+.counter-card {
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* Typewriter cursor effect */
+.typewriter-text {
+    border-right: 2px solid #22d3ee;
+    animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { border-color: #22d3ee; }
+    50% { border-color: transparent; }
+}
+
+/* Glitch Effect for Name */
+.glitch {
+    font-size: 3.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    position: relative;
+    text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75),
+                -0.05em -0.025em 0 rgba(0, 255, 0, 0.75),
+                0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+    animation: glitch 500ms infinite;
+}
+
+.glitch span {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.glitch span:first-child {
+    animation: glitch 650ms infinite;
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+    transform: translate(-0.025em, -0.0125em);
+    opacity: 0.8;
+}
+
+.glitch span:last-child {
+    animation: glitch 375ms infinite;
+    clip-path: polygon(0 80%, 100% 20%, 100% 100%, 0 100%);
+    transform: translate(0.0125em, 0.025em);
+    opacity: 0.8;
+}
+
+@keyframes glitch {
+    0% {
+        text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75),
+                    -0.05em -0.025em 0 rgba(0, 255, 0, 0.75),
+                    -0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+    }
+    14% {
+        text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75),
+                    -0.05em -0.025em 0 rgba(0, 255, 0, 0.75),
+                    -0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+    }
+    15% {
+        text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75),
+                    0.025em 0.025em 0 rgba(0, 255, 0, 0.75),
+                    -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
+    }
+    49% {
+        text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75),
+                    0.025em 0.025em 0 rgba(0, 255, 0, 0.75),
+                    -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
+    }
+    50% {
+        text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75),
+                    0.05em 0 0 rgba(0, 255, 0, 0.75),
+                    0 -0.05em 0 rgba(0, 0, 255, 0.75);
+    }
+    99% {
+        text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75),
+                    0.05em 0 0 rgba(0, 255, 0, 0.75),
+                    0 -0.05em 0 rgba(0, 0, 255, 0.75);
+    }
+    100% {
+        text-shadow: -0.025em 0 0 rgba(255, 0, 0, 0.75),
+                    -0.025em -0.025em 0 rgba(0, 255, 0, 0.75),
+                    -0.025em -0.05em 0 rgba(0, 0, 255, 0.75);
+    }
+}
+
+/* Glitch hover effect for name */
+.glitch-hover {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.glitch-hover:hover {
+    animation: glitch-text 0.3s infinite;
+}
+
+@keyframes glitch-text {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+}
+
+/* Terminal cursor blink */
+.cursor-blink {
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Matrix rain effect overlay */
+.matrix-overlay {
+    position: relative;
+    overflow: hidden;
+}
+
+.matrix-overlay::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 255, 0, 0.03) 0px,
+        rgba(0, 0, 0, 0) 2px,
+        rgba(0, 255, 0, 0.03) 4px
+    );
+    pointer-events: none;
+    z-index: 5;
+}
