@@ -21,7 +21,7 @@ export const ContactSection: React.FC = () => {
     setErrorMessage('');
     setSuccessMessage('');
 
-    // Custom UI-level validation (No browser HTML popups)
+    // Validation
     if (!senderName.trim()) {
       setStatus('error');
       setErrorMessage('Please enter your name or organization.');
@@ -42,35 +42,47 @@ export const ContactSection: React.FC = () => {
 
     setStatus('sending');
 
-    // If real EmailJS environment variables are configured in .env
+    // 1. Direct EmailJS Transmission matching user's template variables
     if (serviceId && templateId && publicKey) {
       try {
-        await emailjs.send(
+        const templateParams = {
+          name: senderName,
+          email: senderEmail,
+          title: subject || 'Portfolio Inquiry',
+          message: message,
+          from_name: senderName,
+          from_email: senderEmail,
+          reply_to: senderEmail,
+          subject: subject || 'Portfolio Inquiry',
+          to_name: PERSONAL_INFO.name,
+        };
+
+        const result = await emailjs.send(
           serviceId,
           templateId,
-          {
-            from_name: senderName,
-            from_email: senderEmail,
-            reply_to: senderEmail,
-            subject: subject || 'Portfolio Inquiry',
-            message: message,
-            to_name: PERSONAL_INFO.name,
-          },
+          templateParams,
           publicKey
         );
-        setStatus('success');
-        setSuccessMessage('Transmission delivered directly to inbox.');
-        setSenderName('');
-        setSenderEmail('');
-        setSubject('');
-        setMessage('');
-        return;
+
+        if (result.status === 200) {
+          setStatus('success');
+          setSuccessMessage('Transmission delivered directly. Auto-reply confirmation dispatched.');
+          setSenderName('');
+          setSenderEmail('');
+          setSubject('');
+          setMessage('');
+          return;
+        }
       } catch (err: any) {
         console.error('EmailJS transmission error:', err);
+        setStatus('error');
+        const detail = err?.text || err?.message || 'Check EmailJS service or template connection.';
+        setErrorMessage(`Email service notice: ${detail}.`);
+        return;
       }
     }
 
-    // Direct mailto protocol fallback
+    // 2. Fallback only if keys are missing from .env
     const formattedBody = `Sender: ${senderName}\nEmail: ${senderEmail}\n\n${message}`;
     const mailtoUrl = `mailto:${PERSONAL_INFO.email}?subject=${encodeURIComponent(
       subject || 'Portfolio Inquiry'
@@ -148,7 +160,7 @@ export const ContactSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Transmission Form - noValidate stops default browser bubble popups */}
+        {/* Transmission Form */}
         <form onSubmit={handleSend} noValidate className="space-y-2">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {/* Sender Name */}
@@ -165,7 +177,7 @@ export const ContactSection: React.FC = () => {
 
             {/* Sender Email */}
             <input
-              type="text"
+              type="email"
               placeholder="YOUR EMAIL (FOR REPLY)"
               value={senderEmail}
               onChange={(e) => {
@@ -197,7 +209,7 @@ export const ContactSection: React.FC = () => {
             className="w-full border border-white/30 p-2 text-xs bg-black/80 text-white placeholder-white/30 outline-none focus:border-white font-mono tracking-wider resize-none"
           />
 
-          {/* Inline Custom Error Message (Pure theme, no browser popup) */}
+          {/* Inline Error Message */}
           {status === 'error' && (
             <div className="flex items-center gap-1.5 text-red-400 text-xs font-mono py-1 px-2 border border-red-500/30 bg-red-950/20">
               <AlertCircle className="w-3.5 h-3.5 flex-shrink-0" />
@@ -212,7 +224,7 @@ export const ContactSection: React.FC = () => {
             className="w-full py-2.5 px-4 bg-white text-black font-mono font-bold text-xs uppercase tracking-widest hover:bg-white/90 active:scale-[0.99] transition-all cursor-pointer shadow-[0_0_15px_rgba(255,255,255,0.25)] flex items-center justify-center gap-2"
           >
             {status === 'sending' ? (
-              <span>DISPATCHING...</span>
+              <span>DISPATCHING DIRECTLY...</span>
             ) : (
               <>
                 <Send className="w-3.5 h-3.5" />
