@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Menu, X } from 'lucide-react';
 import type { SectionId } from '../types';
 import { SECTIONS } from '../data/sections';
 import { PERSONAL_INFO } from '../data/portfolioData';
@@ -10,30 +11,37 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({ activeSection, onSelectSection, hideName }) => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const handleNav = (id: SectionId) => {
+    onSelectSection(id);
+    setMobileMenuOpen(false);
+  };
+
   return (
-    <header className="w-full flex items-center justify-between px-8 md:px-16 py-6 select-none z-30 relative backdrop-blur-[2px]">
+    <header className="w-full flex items-center justify-between px-4 sm:px-8 md:px-16 py-3 sm:py-4 md:py-6 select-none z-30 relative backdrop-blur-[2px]">
       {/* Brand title */}
       <div 
-        onClick={() => onSelectSection('home')} 
-        className={`cursor-pointer group flex items-center gap-2.5 transition-opacity duration-300 ${
-          hideName ? 'opacity-0 pointer-events-none' : 'opacity-100'
+        onClick={() => handleNav('home')} 
+        className={`cursor-pointer group flex items-center gap-2 transition-opacity duration-300 ${
+          hideName ? 'opacity-0 pointer-events-none md:opacity-0' : 'opacity-100'
         }`}
         title="Return to Home"
       >
         <div className="w-2 h-2 bg-white rounded-full transition-transform group-hover:scale-150 duration-300" />
-        <h1 className="text-base md:text-xl font-black tracking-widest text-white transition-opacity group-hover:opacity-80 uppercase">
+        <h1 className="text-sm sm:text-base md:text-xl font-black tracking-wider sm:tracking-widest text-white transition-opacity group-hover:opacity-80 uppercase truncate max-w-[200px] sm:max-w-none">
           {PERSONAL_INFO.name}
         </h1>
       </div>
 
-      {/* Navigation menu - restored to original compact clean size */}
-      <nav className="flex items-center text-xs md:text-sm font-mono tracking-wider text-white">
+      {/* Desktop Navigation */}
+      <nav className="hidden md:flex items-center text-xs md:text-sm font-mono tracking-wider text-white">
         {SECTIONS.map((sec, idx) => {
           const isActive = activeSection === sec.id;
           return (
             <React.Fragment key={sec.id}>
               <button
-                onClick={() => onSelectSection(sec.id)}
+                onClick={() => handleNav(sec.id)}
                 className={`cursor-pointer px-2 py-1 transition-all duration-300 relative uppercase ${
                   isActive 
                     ? 'font-black text-white' 
@@ -52,6 +60,45 @@ export const Header: React.FC<HeaderProps> = ({ activeSection, onSelectSection, 
           );
         })}
       </nav>
+
+      {/* Mobile Hamburger Toggle */}
+      <div className="md:hidden flex items-center">
+        <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="p-1.5 border border-white/30 text-white bg-black/60 focus:outline-none cursor-pointer"
+          aria-label="Toggle menu"
+        >
+          {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        </button>
+      </div>
+
+      {/* Mobile Dropdown Menu */}
+      {mobileMenuOpen && (
+        <div className="md:hidden absolute top-full left-0 right-0 bg-black/95 border-b border-white/20 p-4 flex flex-col gap-2 backdrop-blur-xl z-50 shadow-[0_10px_30px_rgba(0,0,0,0.9)]">
+          <button
+            onClick={() => handleNav('home')}
+            className={`text-left px-3 py-2 text-xs font-mono tracking-wider uppercase border border-white/10 ${
+              activeSection === 'home' ? 'bg-white text-black font-black' : 'text-white/70'
+            }`}
+          >
+            Home Overview
+          </button>
+          {SECTIONS.map((sec) => {
+            const isActive = activeSection === sec.id;
+            return (
+              <button
+                key={sec.id}
+                onClick={() => handleNav(sec.id)}
+                className={`text-left px-3 py-2 text-xs font-mono tracking-wider uppercase border border-white/10 ${
+                  isActive ? 'bg-white text-black font-black' : 'text-white/70'
+                }`}
+              >
+                {sec.label}
+              </button>
+            );
+          })}
+        </div>
+      )}
     </header>
   );
 };
