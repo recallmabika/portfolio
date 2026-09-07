@@ -1,9 +1,56 @@
-import React, { useState } from 'react';
-import { GitCommit, ExternalLink } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { GitCommit, ExternalLink, Activity } from 'lucide-react';
 import { PERSONAL_INFO } from '../../data/portfolioData';
 
+interface LiveEvent {
+  id: string;
+  type: string;
+  repo: { name: string };
+  created_at: string;
+}
+
 export const HomeSection: React.FC = () => {
-  const [imgLoaded, setImgLoaded] = useState(false);
+  const [svgContent, setSvgContent] = useState<string>('');
+  const [recentEvents, setRecentEvents] = useState<LiveEvent[]>([]);
+  const [latestCommitTime, setLatestCommitTime] = useState<string>('Live');
+
+  // Fetch live contribution calendar SVG dynamically on mount
+  useEffect(() => {
+    // 1. Fetch live SVG from dynamic chart service with cache-busting timestamp
+    const timestamp = Date.now();
+    fetch(`https://ghchart.rshah.org/ffffff/recallmabika?t=${timestamp}`)
+      .then((res) => {
+        if (!res.ok) throw new Error('Live chart fetch failed');
+        return res.text();
+      })
+      .then((svg) => {
+        if (svg && svg.includes('<svg')) {
+          setSvgContent(svg);
+        }
+      })
+      .catch(() => {
+        // Fallback to locally bundled verified SVG if offline or network error
+        fetch('/github-contributions.svg')
+          .then((res) => res.text())
+          .then((fallbackSvg) => setSvgContent(fallbackSvg))
+          .catch(() => {});
+      });
+
+    // 2. Fetch live recent commit / activity events from official GitHub REST API (No auth token required)
+    fetch('https://api.github.com/users/recallmabika/events?per_page=5')
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setRecentEvents(data.slice(0, 2));
+          const latest = data[0];
+          if (latest?.created_at) {
+            const date = new Date(latest.created_at);
+            setLatestCommitTime(date.toLocaleDateString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }));
+          }
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   return (
     <div className="w-full flex flex-col md:flex-row items-end justify-between gap-6 text-white">
@@ -29,7 +76,7 @@ export const HomeSection: React.FC = () => {
         </div>
       </div>
 
-      {/* Right Column: Real GitHub Contribution / Activity Graph HUD Panel */}
+      {/* Right Column: Live GitHub Contribution / Activity Graph HUD Panel */}
       <div className="w-full md:w-auto flex-shrink-0">
         <div className="relative group select-none border border-white/30 bg-black/90 backdrop-blur-md p-3 shadow-[0_0_25px_rgba(255,255,255,0.06)] hover:border-white transition-all duration-300">
           {/* HUD Crosshairs */}
@@ -57,21 +104,33 @@ export const HomeSection: React.FC = () => {
             </a>
           </div>
 
-          {/* Contribution Matrix: Direct local SVG with instant rendering */}
+          {/* Live Dynamic Contribution Matrix */}
           <div className="overflow-hidden max-w-[340px] md:max-w-[420px] flex items-center justify-center py-1 bg-black">
-            <img
-              src="/github-contributions.svg"
-              alt="Recall Tawanda Mabika GitHub Contributions"
-              onLoad={() => setImgLoaded(true)}
-              className={`w-full h-auto object-contain filter invert contrast-150 transition-opacity duration-300 ${
-                imgLoaded ? 'opacity-95' : 'opacity-75'
-              }`}
-            />
+            {svgContent ? (
+              <div
+                dangerouslySetInnerHTML={{ __html: svgContent }}
+                className="w-full h-auto flex items-center justify-center filter invert contrast-150 transition-opacity duration-300 [&>svg]:w-full [&>svg]:h-auto"
+              />
+            ) : (
+              <img
+                src="/github-contributions.svg"
+                alt="Recall Tawanda Mabika GitHub Contributions"
+                className="w-full h-auto object-contain filter invert contrast-150"
+              />
+            )}
           </div>
 
+          {/* Live Recent Event Feed & Sync Status */}
           <div className="pt-1.5 border-t border-white/10 flex items-center justify-between text-[9px] font-mono text-white/50 uppercase">
-            <span>675 Contributions in Last Year</span>
-            <span className="text-emerald-400 font-semibold">Active Pipeline</span>
+            <div className="flex items-center gap-1.5">
+              <Activity className="w-3 h-3 text-emerald-400 animate-pulse" />
+              <span className="text-white/80 truncate max-w-[200px]">
+                {recentEvents[0]
+                  ? `${recentEvents[0].type.replace('Event', '')} on ${recentEvents[0].repo.name.replace('recallmabika/', '')}`
+                  : 'Live GitHub Pipeline'}
+              </span>
+            </div>
+            <span className="text-emerald-400 font-semibold">{latestCommitTime}</span>
           </div>
         </div>
       </div>

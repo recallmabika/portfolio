@@ -77,8 +77,8 @@ export const PERSONAL_INFO = {
       category: 'DATABASE ADMINISTRATION & BACKEND',
       skills: [
         'PostgreSQL', 'MySQL', 'SQLite', 'Database Optimization & Schema Design',
-        'Python Flask', 'Python Django', 'Nginx Reverse Proxy',
-        'HTML5 / CSS (Tailwind)', 'JavaScript', 'Git/GitHub', 'System Deployment'
+        'Python Flask', 'Python Django 6', 'FastAPI', 'Celery & Redis',
+        'Django Channels', 'Nginx Reverse Proxy', 'Tailwind CSS', 'Git/GitHub'
       ]
     },
     {
@@ -93,25 +93,58 @@ export const PERSONAL_INFO = {
 
   projects: [
     {
+      id: 'school-management-system',
+      title: 'Chibuwe Technical High School — Management System',
+      category: 'School Information System & Enterprise Web App',
+      date: 'Production Architecture',
+      github: 'https://github.com/recallmabika/e-learning',
+      repoName: 'recallmabika/e-learning',
+      description: 'A comprehensive, full-featured School Management System built with Django 6, PostgreSQL, Celery, Django Channels, and Tailwind CSS. Designed to digitise every aspect of school administration — from student enrollment and academic tracking to fee management, payroll, and real-time messaging.',
+      tags: ['Django 6', 'PostgreSQL', 'Celery', 'Django Channels', 'Tailwind CSS', 'School SIS'],
+      highlights: [
+        'Student enrollment & academic grading tracking',
+        'Automated fee management & institutional payroll',
+        'Real-time communication & staff-student notification channels'
+      ]
+    },
+    {
+      id: 'booking-platform',
+      title: 'Regional Lodging & Hotel Booking Platform (BookItNow)',
+      category: 'Two-Sided Marketplace & Microservices Architecture',
+      date: 'Product & Tech Plan',
+      github: 'https://github.com/recallmabika/BookItNow',
+      repoName: 'recallmabika/BookItNow',
+      description: 'A two-sided hotel & lodging booking marketplace connecting guests with hotels and guesthouses. Features real-time availability with instant booking, zero double-booking locks, and seamless multi-channel payments.',
+      tags: ['FastAPI', 'PostgreSQL', 'Redis', 'Next.js', 'Flutter', 'Paynow/EcoCash', 'Stripe', 'Celery'],
+      highlights: [
+        'Full multi-platform architecture: Next.js Web, Flutter Mobile, Host & Admin SPAs, FastAPI backend',
+        'ACID transactions & row-level locking (SELECT FOR UPDATE) to eliminate double-bookings',
+        'EcoCash, OneMoney, Paynow & Stripe integration with webhook verification & Celery workers'
+      ]
+    },
+    {
+      id: 'starlink-bridging',
       title: 'Starlink Network Bridging & Dual-Building Deployment',
       category: 'Network Engineering & Infrastructure',
-      date: 'Achievement',
+      date: 'Field Deployment',
       description: 'Independently reconfigured a Starlink installation incorrectly set up by a professional IT firm, successfully bridging high-speed Wi-Fi across two residential buildings in under three hours. Resolved in 72 hours what the contractor left incomplete.',
-      tags: ['Starlink', 'Network Bridging', 'Wi-Fi Optimization', 'Hardware Routing']
+      tags: ['Starlink', 'Network Bridging', 'Wi-Fi Optimization', 'Hardware Routing'],
+      highlights: [
+        'Long-range point-to-point Wi-Fi bridge',
+        'Subnet routing and latency minimization'
+      ]
     },
     {
-      title: 'Cloud Server Deployment – E-Learning Platform',
-      category: 'Cloud Infrastructure & Systems',
-      date: 'Production Deployment',
-      description: 'Independently provisioned a cloud server on Clouding.io and deployed a live e-learning platform end-to-end — configuring SSH access, Nginx reverse proxy, firewall hardening (UFW), and PostgreSQL database integration.',
-      tags: ['Clouding.io', 'Nginx', 'PostgreSQL', 'Firewall Hardening', 'Ubuntu']
-    },
-    {
+      id: 'enterprise-outage-recovery',
       title: 'Enterprise Outage Resolution & ISP Recovery',
-      category: 'Systems Administration',
+      category: 'Systems Administration & Infrastructure',
       date: 'Production Resolution',
       description: 'Diagnosed and resolved a persistent 4-day enterprise network outage caused by misconfiguration and physical cable faults at Rupise Hot Springs Estate, transitioning into the permanent IT Specialist.',
-      tags: ['Cable Diagnostics', 'Switching', 'Subnetting', 'Firewall']
+      tags: ['Cable Diagnostics', 'Switching', 'Subnetting', 'Firewall'],
+      highlights: [
+        'Cable diagnostics & switch loop isolation',
+        'Permanent appointment as IT Specialist'
+      ]
     }
   ],
 
