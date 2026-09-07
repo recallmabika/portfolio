@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import emailjs from '@emailjs/browser';
-import { Send, CheckCircle, MessageCircle, Phone } from 'lucide-react';
+import { Send, CheckCircle, AlertCircle, MessageCircle, Phone } from 'lucide-react';
 import { PERSONAL_INFO } from '../../data/portfolioData';
 
 export const ContactSection: React.FC = () => {
@@ -9,7 +9,8 @@ export const ContactSection: React.FC = () => {
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
-  const [statusMessage, setStatusMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || '';
   const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || '';
@@ -17,9 +18,31 @@ export const ContactSection: React.FC = () => {
 
   const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrorMessage('');
+    setSuccessMessage('');
+
+    // Custom UI-level validation (No browser HTML popups)
+    if (!senderName.trim()) {
+      setStatus('error');
+      setErrorMessage('Please enter your name or organization.');
+      return;
+    }
+
+    if (!senderEmail.trim() || !senderEmail.includes('@')) {
+      setStatus('error');
+      setErrorMessage('Please enter a valid reply-to email address.');
+      return;
+    }
+
+    if (!message.trim()) {
+      setStatus('error');
+      setErrorMessage('Please enter your transmission message.');
+      return;
+    }
+
     setStatus('sending');
 
-    // If real EmailJS environment variables are provided in .env
+    // If real EmailJS environment variables are configured in .env
     if (serviceId && templateId && publicKey) {
       try {
         await emailjs.send(
@@ -29,31 +52,33 @@ export const ContactSection: React.FC = () => {
             from_name: senderName,
             from_email: senderEmail,
             reply_to: senderEmail,
-            subject: subject,
+            subject: subject || 'Portfolio Inquiry',
             message: message,
             to_name: PERSONAL_INFO.name,
           },
           publicKey
         );
         setStatus('success');
-        setStatusMessage('Transmission delivered successfully. I will review and reply to your email shortly.');
+        setSuccessMessage('Transmission delivered directly to inbox.');
         setSenderName('');
         setSenderEmail('');
         setSubject('');
         setMessage('');
         return;
       } catch (err: any) {
-        console.error('EmailJS error:', err);
+        console.error('EmailJS transmission error:', err);
       }
     }
 
-    // Default mailto protocol fallback
-    const formattedBody = `Sender Name: ${senderName}\nReply-To Email: ${senderEmail}\n\nMessage:\n${message}`;
-    const mailtoUrl = `mailto:${PERSONAL_INFO.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(formattedBody)}`;
+    // Direct mailto protocol fallback
+    const formattedBody = `Sender: ${senderName}\nEmail: ${senderEmail}\n\n${message}`;
+    const mailtoUrl = `mailto:${PERSONAL_INFO.email}?subject=${encodeURIComponent(
+      subject || 'Portfolio Inquiry'
+    )}&body=${encodeURIComponent(formattedBody)}`;
     window.location.href = mailtoUrl;
 
     setStatus('success');
-    setStatusMessage('Transmission dispatched via mail client. Awaiting response.');
+    setSuccessMessage('Transmission dispatched via mail client.');
   };
 
   return (
@@ -123,26 +148,30 @@ export const ContactSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Transmission Form */}
-        <form onSubmit={handleSend} className="space-y-2">
+        {/* Transmission Form - noValidate stops default browser bubble popups */}
+        <form onSubmit={handleSend} noValidate className="space-y-2">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {/* Sender Name */}
             <input
               type="text"
               placeholder="YOUR NAME / ENTITY"
               value={senderName}
-              onChange={(e) => setSenderName(e.target.value)}
-              required
+              onChange={(e) => {
+                setSenderName(e.target.value);
+                if (status === 'error') setStatus('idle');
+              }}
               className="w-full border border-white/30 p-2 text-xs bg-black/80 text-white placeholder-white/30 outline-none focus:border-white font-mono tracking-wider"
             />
 
-            {/* Sender Email (Requested Field) */}
+            {/* Sender Email */}
             <input
-              type="email"
+              type="text"
               placeholder="YOUR EMAIL (FOR REPLY)"
               value={senderEmail}
-              onChange={(e) => setSenderEmail(e.target.value)}
-              required
+              onChange={(e) => {
+                setSenderEmail(e.target.value);
+                if (status === 'error') setStatus('idle');
+              }}
               className="w-full border border-white/30 p-2 text-xs bg-black/80 text-white placeholder-white/30 outline-none focus:border-white font-mono tracking-wider"
             />
           </div>
@@ -153,7 +182,6 @@ export const ContactSection: React.FC = () => {
             placeholder="SUBJECT / INQUIRY TOPIC"
             value={subject}
             onChange={(e) => setSubject(e.target.value)}
-            required
             className="w-full border border-white/30 p-2 text-xs bg-black/80 text-white placeholder-white/30 outline-none focus:border-white font-mono tracking-wider"
           />
 
@@ -162,10 +190,20 @@ export const ContactSection: React.FC = () => {
             rows={3}
             placeholder="TRANSMISSION MESSAGE..."
             value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            required
+            onChange={(e) => {
+              setMessage(e.target.value);
+              if (status === 'error') setStatus('idle');
+            }}
             className="w-full border border-white/30 p-2 text-xs bg-black/80 text-white placeholder-white/30 outline-none focus:border-white font-mono tracking-wider resize-none"
           />
+
+          {/* Inline Custom Error Message (Pure theme, no browser popup) */}
+          {status === 'error' && (
+            <div className="flex items-center gap-1.5 text-red-400 text-xs font-mono py-1 px-2 border border-red-500/30 bg-red-950/20">
+              <AlertCircle className="w-3.5 h-3.5 flex-shrink-0" />
+              <span>{errorMessage}</span>
+            </div>
+          )}
 
           {/* Submit Button */}
           <button
@@ -187,7 +225,7 @@ export const ContactSection: React.FC = () => {
           {status === 'success' && (
             <div className="flex items-center gap-1.5 text-emerald-400 text-xs font-mono pt-1">
               <CheckCircle className="w-3.5 h-3.5 flex-shrink-0" />
-              <span>{statusMessage}</span>
+              <span>{successMessage}</span>
             </div>
           )}
         </form>
