@@ -1,4 +1,5 @@
 import React from 'react';
+import { Phone, MessageCircle } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 
 export const ProfileFrame: React.FC = () => {
@@ -14,7 +15,7 @@ export const ProfileFrame: React.FC = () => {
         <div className="absolute -bottom-1 -left-1 w-3 h-3 border-b-2 border-l-2 border-white" />
         <div className="absolute -bottom-1 -right-1 w-3 h-3 border-b-2 border-r-2 border-white" />
 
-        {/* TOP: Full Name & Availability status */}
+        {/* TOP BAR: Full Name & Availability status */}
         <div className="flex items-center justify-between gap-2 pb-1.5 border-b border-white/15 mb-2.5">
           <h3 className="text-xs sm:text-sm md:text-base font-black tracking-wider sm:tracking-widest text-white uppercase truncate">
             {PERSONAL_INFO.name}
@@ -27,8 +28,8 @@ export const ProfileFrame: React.FC = () => {
           </div>
         </div>
 
-        {/* BOTTOM: Photo on left, Details on right */}
-        <div className="flex items-center gap-3 sm:gap-4">
+        {/* MIDDLE: Photo on left, Details on right */}
+        <div className="flex items-center gap-3 sm:gap-4 mb-2.5">
           {/* Profile Photo */}
           <div className="relative flex-shrink-0">
             <div className="w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 rounded-none border border-white/80 overflow-hidden bg-black shadow-[0_0_15px_rgba(255,255,255,0.2)]">
@@ -55,6 +56,31 @@ export const ProfileFrame: React.FC = () => {
               {PERSONAL_INFO.institution}
             </p>
           </div>
+        </div>
+
+        {/* BOTTOM BOTTOM BAR: Direct Contact Numbers (sm font size) */}
+        <div className="pt-2 border-t border-white/15 flex items-center justify-between gap-2 text-xs sm:text-sm font-mono">
+          {/* WhatsApp */}
+          <a
+            href="https://wa.me/263779466786"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 text-white/85 hover:text-emerald-400 transition-colors group/wa truncate"
+            title="Chat on WhatsApp"
+          >
+            <MessageCircle className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
+            <span className="font-semibold">{PERSONAL_INFO.whatsapp}</span>
+          </a>
+
+          {/* Call Line */}
+          <a
+            href={`tel:${PERSONAL_INFO.phone.replace(/\s+/g, '')}`}
+            className="flex items-center gap-1.5 text-white/85 hover:text-white transition-colors group/phone truncate"
+            title="Direct Call"
+          >
+            <Phone className="w-3.5 h-3.5 text-white/70 flex-shrink-0" />
+            <span className="font-semibold">{PERSONAL_INFO.phone}</span>
+          </a>
         </div>
       </div>
     </div>

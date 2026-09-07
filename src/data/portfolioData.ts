@@ -15,8 +15,8 @@ export const PERSONAL_INFO = {
   rolesBadge: 'InfoSec & Networking Specialist',
   institution: 'Midlands State University',
   location: 'Harare, Zimbabwe',
-  phone: '+263 77 946 6786',
-  whatsapp: '+263 77 946 6786',
+  whatsapp: '+263 77946 6786',
+  phone: '+263 71 800 1031',
   email: 'recallmabika@gmail.com',
   linkedin: 'https://linkedin.com/in/recallmabika',
   github: 'https://github.com/recallmabika',
@@ -205,7 +205,8 @@ export const PERSONAL_INFO = {
 
   contact: {
     directEmail: 'recallmabika@gmail.com',
-    phone: '+263 77 946 6786',
+    whatsapp: '+263 77946 6786',
+    call: '+263 71 800 1031',
     status: 'Open to high-impact InfoSec, Network Engineering, and Database Administration roles.',
     location: 'Harare / Gweru, Zimbabwe'
   }
