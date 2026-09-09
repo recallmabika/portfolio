@@ -12,6 +12,7 @@ export const ContactSection: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
+  const apiUrl = import.meta.env.VITE_API_URL || '';
   const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || '';
   const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || '';
   const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || '';
@@ -42,7 +43,41 @@ export const ContactSection: React.FC = () => {
 
     setStatus('sending');
 
-    // 1. Direct EmailJS Transmission matching user's template variables
+    // 1. Direct Flask Gmail SMTP Backend (Zero Watermarks)
+    if (apiUrl) {
+      try {
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: senderName,
+            email: senderEmail,
+            subject: subject || 'Portfolio Inquiry',
+            message: message,
+          }),
+        });
+
+        const data = await response.json();
+        if (response.ok && data.success) {
+          setStatus('success');
+          setSuccessMessage('Transmission delivered directly to inbox via secure Gmail SMTP.');
+          setSenderName('');
+          setSenderEmail('');
+          setSubject('');
+          setMessage('');
+          return;
+        } else if (data.error && data.error.includes('GMAIL_APP_PASSWORD')) {
+          // If Flask is running but password isn't configured yet, cascade to EmailJS
+          console.warn('Flask SMTP password not configured yet, trying EmailJS...');
+        } else {
+          throw new Error(data.error || 'Server rejected transmission');
+        }
+      } catch (err: any) {
+        console.warn('Flask backend connection skipped/failed, trying EmailJS fallback:', err.message);
+      }
+    }
+
+    // 2. EmailJS Transmission (Fallback)
     if (serviceId && templateId && publicKey) {
       try {
         const templateParams = {
@@ -66,7 +101,7 @@ export const ContactSection: React.FC = () => {
 
         if (result.status === 200) {
           setStatus('success');
-          setSuccessMessage('Transmission delivered directly. Auto-reply confirmation dispatched.');
+          setSuccessMessage('Transmission delivered directly.');
           setSenderName('');
           setSenderEmail('');
           setSubject('');
@@ -76,7 +111,7 @@ export const ContactSection: React.FC = () => {
       } catch (err: any) {
         console.error('EmailJS transmission error:', err);
         setStatus('error');
-        const detail = err?.text || err?.message || 'Check EmailJS service or template connection.';
+        const detail = err?.text || err?.message || 'Check Email service connection.';
         setErrorMessage(`Email service notice: ${detail}.`);
         return;
       }
