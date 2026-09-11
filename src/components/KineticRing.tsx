@@ -2,6 +2,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { SectionId } from '../types';
 import { SECTIONS } from '../data/sections';
+import { useSound } from '../context/SoundContext';
 
 interface KineticRingProps {
   activeSection: SectionId;
@@ -9,6 +10,7 @@ interface KineticRingProps {
 }
 
 export const KineticRing: React.FC<KineticRingProps> = ({ activeSection, onSelectSection }) => {
+  const { playHover, playSwitch, playBeep } = useSound();
   const isHome = activeSection === 'home';
   const activeIndex = isHome ? -1 : SECTIONS.findIndex((s) => s.id === activeSection);
   const currentSection = isHome ? null : SECTIONS[activeIndex];
@@ -122,8 +124,10 @@ export const KineticRing: React.FC<KineticRingProps> = ({ activeSection, onSelec
           }
           whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.94 }}
+          onMouseEnter={playHover}
           className="relative z-20 w-20 h-20 sm:w-22 sm:h-22 md:w-26 md:h-26 rounded-full bg-black border-2 border-white flex flex-col items-center justify-center cursor-pointer shadow-[0_0_30px_rgba(255,255,255,0.25)] hover:border-white"
           onClick={() => {
+            playSwitch();
             if (isHome) {
               onSelectSection(SECTIONS[0].id);
             } else {
@@ -151,8 +155,10 @@ export const KineticRing: React.FC<KineticRingProps> = ({ activeSection, onSelec
               animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
               exit={{ opacity: 0, x: 12, filter: 'blur(4px)' }}
               transition={{ duration: 0.25, ease: 'easeOut' }}
+              onMouseEnter={playHover}
               className="bg-black text-white px-4 sm:px-6 py-2 sm:py-2.5 font-mono font-black tracking-wider sm:tracking-widest text-xs sm:text-sm uppercase shadow-[0_0_20px_rgba(255,255,255,0.35)] flex items-center gap-2 select-none pointer-events-auto cursor-pointer border border-white hover:bg-white hover:text-black transition-all active:scale-95"
               onClick={() => {
+                playBeep();
                 if (isHome) onSelectSection('about');
               }}
             >

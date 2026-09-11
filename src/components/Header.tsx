@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Volume2, VolumeX } from 'lucide-react';
 import type { SectionId } from '../types';
 import { SECTIONS } from '../data/sections';
 import { PERSONAL_INFO } from '../data/portfolioData';
+import { useSound } from '../context/SoundContext';
 
 interface HeaderProps {
   activeSection: SectionId;
@@ -12,8 +13,10 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ activeSection, onSelectSection, hideName }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { isMuted, toggleMute, playClick, playHover, playSwitch } = useSound();
 
   const handleNav = (id: SectionId) => {
+    playSwitch();
     onSelectSection(id);
     setMobileMenuOpen(false);
   };
@@ -23,6 +26,7 @@ export const Header: React.FC<HeaderProps> = ({ activeSection, onSelectSection, 
       {/* Brand title */}
       <div 
         onClick={() => handleNav('home')} 
+        onMouseEnter={playHover}
         className={`cursor-pointer group flex items-center gap-2 transition-opacity duration-300 ${
           hideName ? 'opacity-0 pointer-events-none md:opacity-0' : 'opacity-100'
         }`}
@@ -34,42 +38,76 @@ export const Header: React.FC<HeaderProps> = ({ activeSection, onSelectSection, 
         </h1>
       </div>
 
-      {/* Desktop Navigation */}
-      <nav className="hidden md:flex items-center text-xs md:text-sm font-mono tracking-wider text-white">
-        {SECTIONS.map((sec, idx) => {
-          const isActive = activeSection === sec.id;
-          return (
-            <React.Fragment key={sec.id}>
-              <button
-                onClick={() => handleNav(sec.id)}
-                className={`cursor-pointer px-2 py-1 transition-all duration-300 relative uppercase ${
-                  isActive 
-                    ? 'font-black text-white' 
-                    : 'text-white/40 hover:text-white/90'
-                }`}
-              >
-                <span>{sec.label}</span>
-                {isActive && (
-                  <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_8px_#ffffff]" />
+      {/* Right Controls: Desktop Navigation + Audio Control */}
+      <div className="flex items-center gap-4 sm:gap-6">
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center text-xs md:text-sm font-mono tracking-wider text-white">
+          {SECTIONS.map((sec, idx) => {
+            const isActive = activeSection === sec.id;
+            return (
+              <React.Fragment key={sec.id}>
+                <button
+                  onClick={() => handleNav(sec.id)}
+                  onMouseEnter={playHover}
+                  className={`cursor-pointer px-2 py-1 transition-all duration-300 relative uppercase ${
+                    isActive 
+                      ? 'font-black text-white' 
+                      : 'text-white/40 hover:text-white/90'
+                  }`}
+                >
+                  <span>{sec.label}</span>
+                  {isActive && (
+                    <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-white rounded-full shadow-[0_0_8px_#ffffff]" />
+                  )}
+                </button>
+                {idx < SECTIONS.length - 1 && (
+                  <span className="mx-1 md:mx-2 text-white/20 select-none font-light">|</span>
                 )}
-              </button>
-              {idx < SECTIONS.length - 1 && (
-                <span className="mx-1 md:mx-2 text-white/20 select-none font-light">|</span>
-              )}
-            </React.Fragment>
-          );
-        })}
-      </nav>
+              </React.Fragment>
+            );
+          })}
+        </nav>
 
-      {/* Mobile Hamburger Toggle */}
-      <div className="md:hidden flex items-center">
+        {/* Datacenter Audio Stream Toggle Button */}
         <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="p-1.5 border border-white/30 text-white bg-black/60 focus:outline-none cursor-pointer"
-          aria-label="Toggle menu"
+          onClick={() => {
+            toggleMute();
+            playClick();
+          }}
+          onMouseEnter={playHover}
+          className={`cursor-pointer flex items-center gap-1.5 px-2.5 py-1 text-[10px] sm:text-xs font-mono uppercase tracking-widest border transition-all duration-300 ${
+            !isMuted 
+              ? 'border-white bg-white text-black font-black shadow-[0_0_15px_rgba(255,255,255,0.4)]' 
+              : 'border-white/30 text-white/60 hover:text-white hover:border-white/70 bg-black/40'
+          }`}
+          title={isMuted ? "Activate Datacenter Ambient Sound" : "Mute Sound"}
         >
-          {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          {!isMuted ? (
+            <>
+              <Volume2 className="w-3.5 h-3.5 animate-pulse" />
+              <span className="hidden sm:inline">AUDIO: ON</span>
+            </>
+          ) : (
+            <>
+              <VolumeX className="w-3.5 h-3.5 opacity-60" />
+              <span className="hidden sm:inline">AUDIO: OFF</span>
+            </>
+          )}
         </button>
+
+        {/* Mobile Hamburger Toggle */}
+        <div className="md:hidden flex items-center">
+          <button
+            onClick={() => {
+              playClick();
+              setMobileMenuOpen(!mobileMenuOpen);
+            }}
+            className="p-1.5 border border-white/30 text-white bg-black/60 focus:outline-none cursor-pointer"
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Dropdown Menu */}
