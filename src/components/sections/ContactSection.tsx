@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import emailjs from '@emailjs/browser';
 import { Send, CheckCircle, AlertCircle, MessageCircle, Phone } from 'lucide-react';
 import { PERSONAL_INFO } from '../../data/portfolioData';
 
@@ -11,11 +10,6 @@ export const ContactSection: React.FC = () => {
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-
-  const apiUrl = import.meta.env.VITE_API_URL || '';
-  const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || '';
-  const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || '';
-  const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || '';
 
   const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,89 +37,34 @@ export const ContactSection: React.FC = () => {
 
     setStatus('sending');
 
-    // 1. Direct Flask Gmail SMTP Backend (Zero Watermarks)
-    if (apiUrl) {
-      try {
-        const response = await fetch(apiUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            name: senderName,
-            email: senderEmail,
-            subject: subject || 'Portfolio Inquiry',
-            message: message,
-          }),
-        });
-
-        const data = await response.json();
-        if (response.ok && data.success) {
-          setStatus('success');
-          setSuccessMessage('Transmission delivered directly to inbox via secure Gmail SMTP.');
-          setSenderName('');
-          setSenderEmail('');
-          setSubject('');
-          setMessage('');
-          return;
-        } else if (data.error && data.error.includes('GMAIL_APP_PASSWORD')) {
-          // If Flask is running but password isn't configured yet, cascade to EmailJS
-          console.warn('Flask SMTP password not configured yet, trying EmailJS...');
-        } else {
-          throw new Error(data.error || 'Server rejected transmission');
-        }
-      } catch (err: any) {
-        console.warn('Flask backend connection skipped/failed, trying EmailJS fallback:', err.message);
-      }
-    }
-
-    // 2. EmailJS Transmission (Fallback)
-    if (serviceId && templateId && publicKey) {
-      try {
-        const templateParams = {
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
           name: senderName,
           email: senderEmail,
-          title: subject || 'Portfolio Inquiry',
-          message: message,
-          from_name: senderName,
-          from_email: senderEmail,
-          reply_to: senderEmail,
           subject: subject || 'Portfolio Inquiry',
-          to_name: PERSONAL_INFO.name,
-        };
+          message: message,
+        }),
+      });
 
-        const result = await emailjs.send(
-          serviceId,
-          templateId,
-          templateParams,
-          publicKey
-        );
-
-        if (result.status === 200) {
-          setStatus('success');
-          setSuccessMessage('Transmission delivered directly.');
-          setSenderName('');
-          setSenderEmail('');
-          setSubject('');
-          setMessage('');
-          return;
-        }
-      } catch (err: any) {
-        console.error('EmailJS transmission error:', err);
+      const data = await response.json();
+      if (response.ok && data.success) {
+        setStatus('success');
+        setSuccessMessage('Transmission delivered directly to inbox via secure SMTP.');
+        setSenderName('');
+        setSenderEmail('');
+        setSubject('');
+        setMessage('');
+      } else {
         setStatus('error');
-        const detail = err?.text || err?.message || 'Check Email service connection.';
-        setErrorMessage(`Email service notice: ${detail}.`);
-        return;
+        setErrorMessage(data.error || 'Transmission failed. Please try again.');
       }
+    } catch {
+      setStatus('error');
+      setErrorMessage('Network error. Please try again or use the direct email above.');
     }
-
-    // 2. Fallback only if keys are missing from .env
-    const formattedBody = `Sender: ${senderName}\nEmail: ${senderEmail}\n\n${message}`;
-    const mailtoUrl = `mailto:${PERSONAL_INFO.email}?subject=${encodeURIComponent(
-      subject || 'Portfolio Inquiry'
-    )}&body=${encodeURIComponent(formattedBody)}`;
-    window.location.href = mailtoUrl;
-
-    setStatus('success');
-    setSuccessMessage('Transmission dispatched via mail client.');
   };
 
   return (
