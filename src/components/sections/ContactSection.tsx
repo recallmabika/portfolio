@@ -52,7 +52,7 @@ export const ContactSection: React.FC = () => {
       const data = await response.json();
       if (response.ok && data.success) {
         setStatus('success');
-        setSuccessMessage('Transmission delivered directly to inbox via secure SMTP.');
+        setSuccessMessage('Message sent successfully.');
         setSenderName('');
         setSenderEmail('');
         setSubject('');
