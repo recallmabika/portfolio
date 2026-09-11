@@ -183,6 +183,8 @@ export const PERSONAL_INFO = {
       title: 'Introduction to Cybersecurity',
       issuer: 'Cisco Networking Academy',
       date: 'April 2025',
+      file: '/certs/Introduction to Cybersecurity - Cisco.pdf',
+      image: '/certs/Introduction to Cybersecurity - Cisco.png'
     },
     {
       title: 'Ethical Hacking 101 & Kali Linux Basics',

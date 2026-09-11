@@ -1,8 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PERSONAL_INFO } from '../../data/portfolioData';
 
 export const CertificationsSection: React.FC = () => {
   const [activeCertModal, setActiveCertModal] = useState<string | null>(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setActiveCertModal(null);
+      }
+    };
+    if (activeCertModal) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [activeCertModal]);
 
   return (
     <div className="space-y-3 max-w-4xl text-white">
@@ -19,46 +31,69 @@ export const CertificationsSection: React.FC = () => {
 
       {/* Grid of Verified Certifications */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 pt-1">
-        {PERSONAL_INFO.certifications.map((cert, idx) => (
-          <div 
-            key={idx} 
-            className="border border-white/20 p-3 bg-black/70 backdrop-blur-sm flex flex-col justify-between transition-all duration-300 hover:border-white hover:bg-white/[0.04]"
-          >
-            <div>
-              <div className="flex items-center justify-between text-[9px] font-mono text-white/50 mb-1">
-                <span>{cert.date}</span>
-                {cert.id && <span className="text-white/80 font-bold">{cert.id}</span>}
-              </div>
-              <h4 className="font-bold text-xs text-white leading-tight mb-1">
-                {cert.title}
-              </h4>
-              <p className="text-[10px] font-mono text-white/60 mb-2">
-                {cert.issuer}
-              </p>
-            </div>
+        {PERSONAL_INFO.certifications.map((cert, idx) => {
+          const hasImage = Boolean(cert.image);
+          const hasFile = Boolean(cert.file);
+          const isClickable = hasImage || hasFile;
 
-            <div className="flex items-center gap-2 pt-2 border-t border-white/10">
-              {cert.image && (
-                <button
-                  onClick={() => setActiveCertModal(cert.image!)}
-                  className="text-[10px] font-mono underline hover:text-white text-white/80 cursor-pointer"
-                >
-                  View Image
-                </button>
-              )}
-              {cert.file && (
-                <a
-                  href={cert.file}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[10px] font-mono underline hover:text-white text-white/80"
-                >
-                  PDF Document
-                </a>
-              )}
+          return (
+            <div 
+              key={idx} 
+              onClick={() => {
+                if (hasImage) {
+                  setActiveCertModal(cert.image!);
+                } else if (hasFile) {
+                  window.open(cert.file, '_blank', 'noopener,noreferrer');
+                }
+              }}
+              className={`border border-white/20 p-3 bg-black/70 backdrop-blur-sm flex flex-col justify-between transition-all duration-300 ${
+                isClickable ? 'cursor-pointer hover:border-white hover:bg-white/[0.08]' : 'hover:border-white/40'
+              }`}
+            >
+              <div>
+                <div className="flex items-center justify-between text-[9px] font-mono text-white/50 mb-1">
+                  <span>{cert.date}</span>
+                  {cert.id && <span className="text-white/80 font-bold">{cert.id}</span>}
+                </div>
+                <h4 className="font-bold text-xs text-white leading-tight mb-1">
+                  {cert.title}
+                </h4>
+                <p className="text-[10px] font-mono text-white/60 mb-2">
+                  {cert.issuer}
+                </p>
+              </div>
+
+              <div 
+                className="flex items-center gap-2 pt-2 border-t border-white/10"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {cert.image && (
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setActiveCertModal(cert.image!);
+                    }}
+                    className="text-[10px] font-mono underline hover:text-white text-white/80 cursor-pointer"
+                  >
+                    View Image
+                  </button>
+                )}
+                {cert.file && (
+                  <a
+                    href={cert.file}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="text-[10px] font-mono underline hover:text-white text-white/80 cursor-pointer"
+                  >
+                    PDF Document
+                  </a>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* Image Modal Preview */}
