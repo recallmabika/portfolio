@@ -1,8 +1,6 @@
-import React, { createContext, useContext, useState, useRef } from 'react';
+import React, { createContext, useContext, useEffect, useRef } from 'react';
 
 interface SoundContextType {
-  isMuted: boolean;
-  toggleMute: () => void;
   playClick: () => void;
   playHover: () => void;
   playSwitch: () => void;
@@ -10,8 +8,6 @@ interface SoundContextType {
 }
 
 const SoundContext = createContext<SoundContextType>({
-  isMuted: true,
-  toggleMute: () => {},
   playClick: () => {},
   playHover: () => {},
   playSwitch: () => {},
@@ -19,10 +15,10 @@ const SoundContext = createContext<SoundContextType>({
 });
 
 export const SoundProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [isMuted, setIsMuted] = useState<boolean>(true);
   const audioCtxRef = useRef<AudioContext | null>(null);
   const ambientGainRef = useRef<GainNode | null>(null);
   const isStartedRef = useRef<boolean>(false);
+  const chatterTimeoutRef = useRef<any>(null);
 
   // Initialize Web Audio Context
   const getAudioContext = () => {
@@ -38,36 +34,100 @@ export const SoundProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     return audioCtxRef.current;
   };
 
-  // Synthesize realistic datacenter rack hum & airflow white noise
+  // 1. Precise "tsi-tsi" / "tsi-tsi-tsi" high-frequency crisp datacenter packet / read-head pulse
+  const triggerTsiBurst = (ctx: AudioContext, count: number = 3, intervalMs: number = 70) => {
+    for (let i = 0; i < count; i++) {
+      setTimeout(() => {
+        if (!ctx || ctx.state !== 'running') return;
+        const now = ctx.currentTime;
+
+        // Bandpass noise pulse for the crisp "ts" friction
+        const bufferSize = Math.floor(ctx.sampleRate * 0.035);
+        const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const data = noiseBuffer.getChannelData(0);
+        for (let j = 0; j < bufferSize; j++) {
+          data[j] = Math.random() * 2 - 1;
+        }
+
+        const noise = ctx.createBufferSource();
+        noise.buffer = noiseBuffer;
+
+        // High frequency bandpass gives that distinct "tsi" metallic tech hiss
+        const filter = ctx.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.frequency.setValueAtTime(4500 + Math.random() * 800, now);
+        filter.Q.setValueAtTime(4.5, now);
+
+        // Subtle tiny click tone to give the mechanical actuator feel
+        const osc = ctx.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(2800 + Math.random() * 500, now);
+        osc.frequency.exponentialRampToValueAtTime(800, now + 0.025);
+
+        const oscGain = ctx.createGain();
+        oscGain.gain.setValueAtTime(0.015, now);
+        oscGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.025);
+
+        const noiseGain = ctx.createGain();
+        noiseGain.gain.setValueAtTime(0.045, now);
+        noiseGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.035);
+
+        osc.connect(oscGain);
+        oscGain.connect(ctx.destination);
+
+        noise.connect(filter);
+        filter.connect(noiseGain);
+        noiseGain.connect(ctx.destination);
+
+        osc.start(now);
+        noise.start(now);
+        osc.stop(now + 0.03);
+        noise.stop(now + 0.04);
+      }, i * intervalMs);
+    }
+  };
+
+  // Schedule rhythmic background data-server chatter ("tsi-tsi... tsi-tsi-tsi...")
+  const scheduleServerChatter = (ctx: AudioContext) => {
+    const runCycle = () => {
+      if (!ctx || ctx.state !== 'running') return;
+
+      // Randomly pick: 2 pulses ("tsi-tsi") or 3-4 pulses ("tsi-tsi-tsi")
+      const pulseCount = Math.random() > 0.4 ? (Math.random() > 0.5 ? 3 : 2) : 4;
+      const speed = 65 + Math.random() * 25;
+      triggerTsiBurst(ctx, pulseCount, speed);
+
+      // Next chatter burst in 1.8 to 4.2 seconds
+      const nextDelay = 1800 + Math.random() * 2400;
+      chatterTimeoutRef.current = setTimeout(runCycle, nextDelay);
+    };
+
+    chatterTimeoutRef.current = setTimeout(runCycle, 600);
+  };
+
+  // Datacenter ambient foundation (server rack hum + cooling air + automatic tsi-tsi chatter)
   const startDatacenterAmbient = (ctx: AudioContext) => {
     if (isStartedRef.current) return;
     isStartedRef.current = true;
 
     try {
       const masterGain = ctx.createGain();
-      masterGain.gain.setValueAtTime(0.045, ctx.currentTime);
+      masterGain.gain.setValueAtTime(0.035, ctx.currentTime);
       masterGain.connect(ctx.destination);
       ambientGainRef.current = masterGain;
 
-      // 1. Primary Low Server Hum (55Hz + 110Hz harmonics)
+      // Server rack low hum
       const osc1 = ctx.createOscillator();
       osc1.type = 'sine';
       osc1.frequency.setValueAtTime(55, ctx.currentTime);
 
-      const osc2 = ctx.createOscillator();
-      osc2.type = 'triangle';
-      osc2.frequency.setValueAtTime(110, ctx.currentTime);
-
       const oscGain1 = ctx.createGain();
-      oscGain1.gain.setValueAtTime(0.25, ctx.currentTime);
-
-      const oscGain2 = ctx.createGain();
-      oscGain2.gain.setValueAtTime(0.08, ctx.currentTime);
-
+      oscGain1.gain.setValueAtTime(0.2, ctx.currentTime);
       osc1.connect(oscGain1);
-      osc2.connect(oscGain2);
+      oscGain1.connect(masterGain);
+      osc1.start();
 
-      // 2. Airflow / cooling fan white noise through bandpass filter
+      // Exhaust airflow noise
       const bufferSize = ctx.sampleRate * 2;
       const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
       const output = noiseBuffer.getChannelData(0);
@@ -81,140 +141,95 @@ export const SoundProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
       const fanFilter = ctx.createBiquadFilter();
       fanFilter.type = 'bandpass';
-      fanFilter.frequency.setValueAtTime(240, ctx.currentTime);
-      fanFilter.Q.setValueAtTime(1.2, ctx.currentTime);
+      fanFilter.frequency.setValueAtTime(220, ctx.currentTime);
+      fanFilter.Q.setValueAtTime(1.0, ctx.currentTime);
 
       const noiseGain = ctx.createGain();
-      noiseGain.gain.setValueAtTime(0.06, ctx.currentTime);
+      noiseGain.gain.setValueAtTime(0.045, ctx.currentTime);
 
       whiteNoise.connect(fanFilter);
       fanFilter.connect(noiseGain);
-
-      // Connect all into master ambient
-      oscGain1.connect(masterGain);
-      oscGain2.connect(masterGain);
       noiseGain.connect(masterGain);
-
-      osc1.start();
-      osc2.start();
       whiteNoise.start();
+
+      // Start the realistic "tsi-tsi, tsi-tsi-tsi" server network activity chatter
+      scheduleServerChatter(ctx);
     } catch (e) {
       console.warn('Audio ambient error', e);
     }
   };
 
-  const toggleMute = () => {
+  const ensureAudioActive = () => {
     const ctx = getAudioContext();
-    if (!ctx) return;
-
-    if (isMuted) {
+    if (ctx) {
       startDatacenterAmbient(ctx);
-      if (ambientGainRef.current) {
-        ambientGainRef.current.gain.cancelScheduledValues(ctx.currentTime);
-        ambientGainRef.current.gain.linearRampToValueAtTime(0.045, ctx.currentTime + 0.5);
-      }
-      setIsMuted(false);
-      playSwitchSound(ctx);
-    } else {
-      if (ambientGainRef.current) {
-        ambientGainRef.current.gain.cancelScheduledValues(ctx.currentTime);
-        ambientGainRef.current.gain.linearRampToValueAtTime(0.0001, ctx.currentTime + 0.3);
-      }
-      setIsMuted(true);
     }
   };
 
-  // High-tech terminal button click sound
-  const playClickSound = (ctx: AudioContext) => {
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
+  useEffect(() => {
+    const handleFirstInteraction = () => {
+      ensureAudioActive();
+      window.removeEventListener('pointerdown', handleFirstInteraction);
+      window.removeEventListener('keydown', handleFirstInteraction);
+      window.removeEventListener('wheel', handleFirstInteraction);
+      window.removeEventListener('touchstart', handleFirstInteraction);
+    };
 
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(800, ctx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(240, ctx.currentTime + 0.05);
+    window.addEventListener('pointerdown', handleFirstInteraction);
+    window.addEventListener('keydown', handleFirstInteraction);
+    window.addEventListener('wheel', handleFirstInteraction);
+    window.addEventListener('touchstart', handleFirstInteraction);
 
-    gain.gain.setValueAtTime(0.07, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
+    ensureAudioActive();
 
-    osc.connect(gain);
-    gain.connect(ctx.destination);
+    return () => {
+      window.removeEventListener('pointerdown', handleFirstInteraction);
+      window.removeEventListener('keydown', handleFirstInteraction);
+      window.removeEventListener('wheel', handleFirstInteraction);
+      window.removeEventListener('touchstart', handleFirstInteraction);
+      if (chatterTimeoutRef.current) clearTimeout(chatterTimeoutRef.current);
+    };
+  }, []);
 
-    osc.start();
-    osc.stop(ctx.currentTime + 0.05);
-  };
-
-  // Subtle optic radar hover chirp
+  // UI Interactive Sounds:
+  // On hover: crisp single "tsi"
   const playHoverSound = (ctx: AudioContext) => {
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(1400, ctx.currentTime);
-    osc.frequency.linearRampToValueAtTime(1800, ctx.currentTime + 0.025);
-
-    gain.gain.setValueAtTime(0.015, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.025);
-
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-
-    osc.start();
-    osc.stop(ctx.currentTime + 0.025);
+    triggerTsiBurst(ctx, 1, 0);
   };
 
-  // Section orbit switch sound
+  // On click: double rapid "tsi-tsi"
+  const playClickSound = (ctx: AudioContext) => {
+    triggerTsiBurst(ctx, 2, 55);
+  };
+
+  // On section switch: 3 quick pulses "tsi-tsi-tsi"
   const playSwitchSound = (ctx: AudioContext) => {
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-
-    osc.type = 'triangle';
-    osc.frequency.setValueAtTime(320, ctx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(640, ctx.currentTime + 0.08);
-
-    gain.gain.setValueAtTime(0.06, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.09);
-
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-
-    osc.start();
-    osc.stop(ctx.currentTime + 0.09);
+    triggerTsiBurst(ctx, 3, 60);
   };
 
-  // Datacenter console blip / telemetry beep
+  // On action / download: 4 rhythmic pulses "tsi-tsi-tsi-tsi"
   const playBeepSound = (ctx: AudioContext) => {
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(1200, ctx.currentTime);
-
-    gain.gain.setValueAtTime(0.035, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.06);
-
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-
-    osc.start();
-    osc.stop(ctx.currentTime + 0.06);
+    triggerTsiBurst(ctx, 4, 50);
   };
 
   return (
     <SoundContext.Provider
       value={{
-        isMuted,
-        toggleMute,
         playClick: () => {
-          if (!isMuted && audioCtxRef.current) playClickSound(audioCtxRef.current);
+          ensureAudioActive();
+          if (audioCtxRef.current) playClickSound(audioCtxRef.current);
         },
         playHover: () => {
-          if (!isMuted && audioCtxRef.current) playHoverSound(audioCtxRef.current);
+          ensureAudioActive();
+          if (audioCtxRef.current) playHoverSound(audioCtxRef.current);
         },
         playSwitch: () => {
-          if (!isMuted && audioCtxRef.current) playSwitchSound(audioCtxRef.current);
+          ensureAudioActive();
+          if (audioCtxRef.current) playSwitchSound(audioCtxRef.current);
         },
         playBeep: () => {
-          if (!isMuted && audioCtxRef.current) playBeepSound(audioCtxRef.current);
+          ensureAudioActive();
+          if (audioCtxRef.current) playBeepSound(audioCtxRef.current);
         },
       }}
     >

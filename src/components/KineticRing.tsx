@@ -2,7 +2,6 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { SectionId } from '../types';
 import { SECTIONS } from '../data/sections';
-import { useSound } from '../context/SoundContext';
 
 interface KineticRingProps {
   activeSection: SectionId;
@@ -10,7 +9,6 @@ interface KineticRingProps {
 }
 
 export const KineticRing: React.FC<KineticRingProps> = ({ activeSection, onSelectSection }) => {
-  const { playHover, playSwitch, playBeep } = useSound();
   const isHome = activeSection === 'home';
   const activeIndex = isHome ? -1 : SECTIONS.findIndex((s) => s.id === activeSection);
   const currentSection = isHome ? null : SECTIONS[activeIndex];
